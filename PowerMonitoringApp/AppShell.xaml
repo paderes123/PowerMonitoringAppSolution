@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="PowerMonitoringApp.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:PowerMonitoringApp"
+    xmlns:views="clr-namespace:PowerMonitoringApp.Views"
+    Shell.FlyoutBehavior="Flyout"
+    Title="PowerMonitoringApp">
+
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+        <ShellContent Title="Power Meter"
+               Icon="graph.png"
+               ContentTemplate="{DataTemplate views:PowerMeterPage}" />
+        <ShellContent Title="Voltage and Current"
+               Icon="meter.png"
+               ContentTemplate="{DataTemplate views:VoltageAndCurrentMeterPage}" />
+        <!--<ShellContent Title="Voltage and Current"
+               Icon="meter.png"
+               ContentTemplate="{DataTemplate views:FrequencyMeterPage}" />-->
+    </FlyoutItem>
+
+</Shell>

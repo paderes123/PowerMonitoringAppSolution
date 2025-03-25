@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PowerMonitoringApp.Views.PowerMeterPage"
+             xmlns:chart="clr-namespace:Syncfusion.Maui.Toolkit.Charts;assembly=Syncfusion.Maui.Toolkit"
+             xmlns:local="clr-namespace:PowerMonitoringApp.ViewModels"
+             xmlns:viewModels="clr-namespace:PowerMonitoringApp.ViewModels"
+             x:DataType="viewModels:PowerMeterViewModel"
+             Title="{Binding Title}">
+    <Grid RowDefinitions="*, Auto">
+        <!-- Chart -->
+        <chart:SfCartesianChart x:Name="realTimeChart" HorizontalOptions="Fill" 
+                            VerticalOptions="Fill">
+            <chart:SfCartesianChart.ZoomPanBehavior>
+                <chart:ChartZoomPanBehavior EnablePinchZooming="True" EnableDirectionalZooming="True" MaximumZoomLevel="5"/>
+            </chart:SfCartesianChart.ZoomPanBehavior>
+
+            <chart:SfCartesianChart.Title>
+                <Label Text="Live Power Monitoring" Margin="0,0,0,5" 
+                   HorizontalOptions="Fill" HorizontalTextAlignment="Center" 
+                   VerticalOptions="Center" FontSize="16"/>
+            </chart:SfCartesianChart.Title>
+
+            <chart:SfCartesianChart.XAxes>
+                <chart:NumericalAxis ShowMajorGridLines="false" EdgeLabelsDrawingMode="Center" EnableAutoIntervalOnZooming="False">
+                    <chart:NumericalAxis.Title>
+                        <chart:ChartAxisTitle TextColor="{AppThemeBinding Light=Black, Dark=White}" Text="Time (seconds)"/>
+                    </chart:NumericalAxis.Title>
+                    <chart:NumericalAxis.LabelStyle>
+                        <chart:ChartAxisLabelStyle TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+                    </chart:NumericalAxis.LabelStyle>
+                </chart:NumericalAxis>
+            </chart:SfCartesianChart.XAxes>
+
+            <chart:SfCartesianChart.YAxes>
+                <chart:NumericalAxis ShowMajorGridLines="false" Minimum="0" Maximum="2000">
+                    <chart:NumericalAxis.LabelStyle>
+                        <chart:ChartAxisLabelStyle TextColor="{AppThemeBinding Light=Black, Dark=White}" />
+                    </chart:NumericalAxis.LabelStyle>
+                    <chart:NumericalAxis.Title>
+                        <chart:ChartAxisTitle TextColor="{AppThemeBinding Light=Black, Dark=White}" Text="Power (Watts)"/>
+                    </chart:NumericalAxis.Title>
+                </chart:NumericalAxis>
+            </chart:SfCartesianChart.YAxes>
+
+            <chart:SfCartesianChart.Series>
+                <chart:FastLineSeries ItemsSource="{Binding LiveData}"
+                                  EnableAntiAliasing="True" 
+                                  XBindingPath="Value" YBindingPath="Size"
+                                  Fill="{AppThemeBinding Light={StaticResource series4Light30}, Dark={StaticResource series4Dark30}}"
+                                  StrokeWidth="2">
+                </chart:FastLineSeries>
+            </chart:SfCartesianChart.Series>
+        </chart:SfCartesianChart>
+
+        <!-- Label at the bottom -->
+        <Label x:Name="powerTimeLabel" 
+           Grid.Row="1"
+           Text="{Binding PowerAndTimeLabel}" 
+           HorizontalOptions="Center" 
+           VerticalOptions="End" 
+           Margin="0,0,0,20"
+           FontSize="14"
+           TextColor="{AppThemeBinding Light=Black, Dark=White}"
+           BackgroundColor="{AppThemeBinding Light=#F0F0F0, Dark=#333333}"
+           Padding="10,5"/>
+    </Grid>
+</ContentPage>

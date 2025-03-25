@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="456" height="456" viewBox="0 0 456 456" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <!-- Background Circle (Meter Body) -->
+    <circle cx="228" cy="228" r="200" fill="#2C3E50" stroke="#34495E" stroke-width="10"/>
+
+    <!-- Outer Arc (Meter Scale) -->
+    <path d="M 88,228 A 140,140 0 0,1 368,228" fill="none" stroke="#ECF0F1" stroke-width="20" stroke-linecap="round"/>
+
+    <!-- Inner Ticks (Simplified Scale Markings) -->
+    <g stroke="#ECF0F1" stroke-width="10">
+        <line x1="228" y1="88" x2="228" y2="108"/> <!-- Top -->
+        <line x1="328" y1="128" x2="313" y2="143"/> <!-- Top-right -->
+        <line x1="368" y1="228" x2="348" y2="228"/> <!-- Right -->
+        <line x1="328" y1="328" x2="313" y2="313"/> <!-- Bottom-right -->
+        <line x1="228" y1="368" x2="228" y2="348"/> <!-- Bottom -->
+        <line x1="128" y1="328" x2="143" y2="313"/> <!-- Bottom-left -->
+        <line x1="88" y1="228" x2="108" y2="228"/> <!-- Left -->
+        <line x1="128" y1="128" x2="143" y2="143"/> <!-- Top-left -->
+    </g>
+
+    <!-- Needle (Power Indicator) -->
+    <path d="M 228,228 L 328,128" stroke="#E74C3C" stroke-width="12" stroke-linecap="round" transform="rotate(45, 228, 228)"/>
+
+    <!-- Center Circle (Needle Pivot) -->
+    <circle cx="228" cy="228" r="20" fill="#E74C3C" stroke="#ECF0F1" stroke-width="5"/>
+</svg>

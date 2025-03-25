@@ -1,0 +1,20 @@
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:PowerMonitoringApp"
+             x:Class="PowerMonitoringApp.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <SolidColorBrush x:Key="series4Light">#352886</SolidColorBrush>
+                    <SolidColorBrush x:Key="series4Dark">#D15007</SolidColorBrush>
+                    <SolidColorBrush x:Key="series4Dark30">#C4D15007</SolidColorBrush>
+                    <SolidColorBrush x:Key="series4Light30">#C4352886</SolidColorBrush>
+                </ResourceDictionary>
+                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

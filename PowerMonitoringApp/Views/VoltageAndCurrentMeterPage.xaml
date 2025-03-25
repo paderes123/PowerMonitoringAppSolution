@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PowerMonitoringApp.Views.VoltageAndCurrentMeterPage"
+             xmlns:viewModels="clr-namespace:PowerMonitoringApp.ViewModels"
+             x:DataType="viewModels:VoltageAndCurrentMeterViewModel"
+             xmlns:gauge="clr-namespace:Syncfusion.Maui.Gauges;assembly=Syncfusion.Maui.Gauges"
+             Title="{Binding Title}">
+    <ScrollView>
+        <VerticalStackLayout Spacing="10" Padding="20" BackgroundColor="{AppThemeBinding Light=White, Dark=#1F1F1F}">
+
+            <!-- Voltage Gauge -->
+            <VerticalStackLayout HorizontalOptions="Center">
+                <gauge:SfRadialGauge BackgroundColor="{AppThemeBinding Light=White, Dark=#1F1F1F}" HorizontalOptions="Center">
+                    <gauge:SfRadialGauge.Axes>
+                        <gauge:RadialAxis StartAngle="135"
+                          EndAngle="405"
+                          Interval="20"
+                          Maximum="250"
+                          RadiusFactor="0.8"
+                          LabelPosition="Outside"
+                          LabelOffset="10" OffsetUnit="Pixel"
+                          MinorTicksPerInterval="4"
+                          LabelFormat="N0">
+
+                            <!-- Axis Line Style -->
+                            <gauge:RadialAxis.AxisLineStyle>
+                                <gauge:RadialLineStyle ThicknessUnit="Pixel"
+                                       Thickness="8"
+                                       Fill="#FF00A8B5" />
+                            </gauge:RadialAxis.AxisLineStyle>
+
+                            <!-- Label Style -->
+                            <gauge:RadialAxis.AxisLabelStyle>
+                                <gauge:GaugeLabelStyle FontAttributes="Bold" 
+                                       TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+                            </gauge:RadialAxis.AxisLabelStyle>
+
+                            <!-- Major Tick Style -->
+                            <gauge:RadialAxis.MajorTickStyle>
+                                <gauge:RadialTickStyle LengthUnit="Factor"
+                                       Length="0.1"
+                                       Stroke="#999999"
+                                       StrokeThickness="1.5" />
+                            </gauge:RadialAxis.MajorTickStyle>
+
+                            <!-- Minor Tick Style -->
+                            <gauge:RadialAxis.MinorTickStyle>
+                                <gauge:RadialTickStyle LengthUnit="Factor"
+                                       Length="0.05"
+                                       Stroke="#C4C4C4"
+                                       StrokeThickness="1.5" />
+                            </gauge:RadialAxis.MinorTickStyle>
+
+                            <!-- (Voltage Label Inside Gauge) -->
+                            <gauge:RadialAxis.Annotations>
+                                <gauge:GaugeAnnotation DirectionUnit="Angle"
+                                       DirectionValue="90"
+                                       PositionFactor="0.5">
+                                    <gauge:GaugeAnnotation.Content>
+                                        <Label WidthRequest="100" HorizontalTextAlignment="Center" Text="{Binding Voltage}"
+                               FontSize="25" 
+                               FontAttributes="Bold" 
+                               HorizontalOptions="Center"
+                               TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+                                    </gauge:GaugeAnnotation.Content>
+                                </gauge:GaugeAnnotation>
+                            </gauge:RadialAxis.Annotations>
+
+                            <!-- Needle Pointer -->
+                            <gauge:RadialAxis.Pointers>
+                                <gauge:NeedlePointer Value="{Binding Voltage}"
+                                     NeedleStartWidth="2"
+                                     NeedleEndWidth="10"
+                                     NeedleLengthUnit="Factor"
+                                     NeedleLength="0.85"
+                                     KnobRadius="12"
+                                     KnobSizeUnit="Pixel"
+                                     TailLength="28"
+                                     TailLengthUnit="Pixel"
+                                     TailWidth="10">
+                                </gauge:NeedlePointer>
+                            </gauge:RadialAxis.Pointers>
+
+                        </gauge:RadialAxis>
+                    </gauge:SfRadialGauge.Axes>
+                </gauge:SfRadialGauge>
+                <!-- Current Label -->
+                <Label Text="Voltage (V)" 
+       FontSize="18" 
+       FontAttributes="Bold" 
+       HorizontalOptions="Center" 
+       TextColor="{AppThemeBinding Light=Black, Dark=White}" />
+            </VerticalStackLayout>
+
+
+
+            <!-- Current Gauge -->
+            <VerticalStackLayout HorizontalOptions="Center">
+                <gauge:SfRadialGauge BackgroundColor="{AppThemeBinding Light=White, Dark=#1F1F1F}" HorizontalOptions="Center">
+                    <gauge:SfRadialGauge.Axes>
+                        <gauge:RadialAxis StartAngle="135"
+                          EndAngle="405"
+                          Interval="0.5"
+                          Maximum="10"
+                          RadiusFactor="0.8"
+                          LabelPosition="Outside"
+                          LabelOffset="10" OffsetUnit="Pixel"
+                          MinorTicksPerInterval="5"
+                          LabelFormat="N1">
+
+                            <!-- Axis Line Style -->
+                            <gauge:RadialAxis.AxisLineStyle>
+                                <gauge:RadialLineStyle ThicknessUnit="Pixel"
+                                       Thickness="8"
+                                       Fill="#FF8C42" />
+                            </gauge:RadialAxis.AxisLineStyle>
+
+                            <!-- Label Style -->
+                            <gauge:RadialAxis.AxisLabelStyle>
+                                <gauge:GaugeLabelStyle FontAttributes="Bold" 
+                                       TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+                            </gauge:RadialAxis.AxisLabelStyle>
+
+                            <!-- Major Tick Style -->
+                            <gauge:RadialAxis.MajorTickStyle>
+                                <gauge:RadialTickStyle LengthUnit="Factor"
+                                       Length="0.1"
+                                       Stroke="#999999"
+                                       StrokeThickness="1.5" />
+                            </gauge:RadialAxis.MajorTickStyle>
+
+                            <!-- Minor Tick Style -->
+                            <gauge:RadialAxis.MinorTickStyle>
+                                <gauge:RadialTickStyle LengthUnit="Factor"
+                                       Length="0.05"
+                                       Stroke="#C4C4C4"
+                                       StrokeThickness="1.5" />
+                            </gauge:RadialAxis.MinorTickStyle>
+
+                            <!-- Annotation (Current Value Inside Gauge) -->
+                            <gauge:RadialAxis.Annotations>
+                                <gauge:GaugeAnnotation DirectionUnit="Angle"
+                                       DirectionValue="90"
+                                       PositionFactor="0.5">
+                                    <gauge:GaugeAnnotation.Content>
+                                        <Label Text="{Binding Current}"
+                               FontSize="25"
+                                               WidthRequest="100" HorizontalTextAlignment="Center"
+                               FontAttributes="Bold" 
+                               HorizontalOptions="Center"
+                               TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+                                    </gauge:GaugeAnnotation.Content>
+                                </gauge:GaugeAnnotation>
+                            </gauge:RadialAxis.Annotations>
+
+                            <!-- Needle Pointer -->
+                            <gauge:RadialAxis.Pointers>
+                                <gauge:NeedlePointer Value="{Binding Current}"
+                                     NeedleStartWidth="2"
+                                     NeedleEndWidth="10"
+                                     NeedleLengthUnit="Factor"
+                                     NeedleLength="0.85"
+                                     KnobRadius="12"
+                                     KnobSizeUnit="Pixel"
+                                     TailLength="28"
+                                     TailLengthUnit="Pixel"
+                                     TailWidth="10">
+                                </gauge:NeedlePointer>
+                            </gauge:RadialAxis.Pointers>
+
+                        </gauge:RadialAxis>
+                    </gauge:SfRadialGauge.Axes>
+                </gauge:SfRadialGauge>
+
+                <!-- Current Label -->
+                <Label Text="Current (A)" 
+       FontSize="18" 
+       FontAttributes="Bold" 
+       HorizontalOptions="Center" 
+       TextColor="{AppThemeBinding Light=Black, Dark=White}" />
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
