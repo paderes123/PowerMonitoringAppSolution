@@ -9,7 +9,7 @@ namespace PowerMonitoringApp.Services
 {
     public class FirebasePowerMeterService : IPowerMeterService
     {
-        private readonly FirebaseClient firebaseClient;
+        private readonly FirebaseClient firebaseClient; // set changes
 
         public FirebasePowerMeterService()
         {
