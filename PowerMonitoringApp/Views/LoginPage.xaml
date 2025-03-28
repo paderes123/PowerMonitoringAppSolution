@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PowerMonitoringApp.Views.LoginPage"
+             Title="LoginPage">
+    <VerticalStackLayout>
+        <ScrollView>
+            <StackLayout Padding="30" Spacing="20">
+                <!-- Logo -->
+                <Image Source="appiconlogo.png" HeightRequest="130" HorizontalOptions="Center" />
+
+                <!-- Welcome Text -->
+                <Label Text="Welcome" FontSize="24" HorizontalOptions="Center" />
+                <Label Text="Log in or sign up to continue" FontSize="14" HorizontalOptions="Center" />
+
+                <!-- Email Entry -->
+                <Entry Placeholder="Email address" Text="soquirkyandrandom@example.com" />
+
+                <!-- Password Entry -->
+                <Entry Placeholder="Password" IsPassword="True" />
+
+                <!-- Error Message -->
+                <Label Text="Wrong email or password" TextColor="Red" IsVisible="False" />
+
+                <!-- Forgot Password -->
+                <Label Text="Forgot password?" TextColor="Blue" HorizontalOptions="End" />
+
+                <!-- Continue Button -->
+                <Button Text="Continue" TextColor="White" />
+
+                <!-- OR Divider -->
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                    <BoxView HeightRequest="1" WidthRequest="100" BackgroundColor="Gray" VerticalOptions="Center" />
+                    <Label Text="OR" Margin="10,0,10,0" HorizontalOptions="Center" VerticalOptions="Center" />
+                    <BoxView HeightRequest="1" WidthRequest="100" BackgroundColor="Gray" VerticalOptions="Center" />
+                </StackLayout>
+
+                <!-- Social Login Buttons -->
+                <Button BorderColor="Black"
+                        HeightRequest="50"
+                        BorderWidth="1" WidthRequest="300"
+                        HorizontalOptions="Center" 
+                        Text="Continue with Google     " 
+                        ImageSource="google.png" 
+                        BackgroundColor="Transparent" 
+                        TextColor="Black">
+                </Button>
+                <Button BorderColor="Black" 
+                        HeightRequest="50"
+                        BorderWidth="1"
+                        WidthRequest="300"
+                        HorizontalOptions="Center"
+                        Text="Continue with Facebook" 
+                        ImageSource="facebook.png" 
+                        BackgroundColor="Transparent" 
+                        TextColor="Black" />
+
+                <!-- Sign Up Link -->
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Label Text="Don't have an account? " />
+                    <Label Text="Sign up" TextColor="Blue">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </VerticalStackLayout>
+</ContentPage>
