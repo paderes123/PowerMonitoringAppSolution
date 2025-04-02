@@ -1,12 +1,14 @@
-﻿namespace PowerMonitoringApp
+﻿using Microsoft.Extensions.DependencyInjection;
+using PowerMonitoringApp.Views;
+using Microsoft.Maui.Controls;
+
+namespace PowerMonitoringApp
 {
     public partial class App : Application
     {
-        public App()
+        public App(IServiceProvider serviceProvider)
         {
-            //Register Syncfusion license
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1NMaF1cXGJCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdmWXxfcnRXQ2heV0BwW0I=");
-
             InitializeComponent();
         }
 

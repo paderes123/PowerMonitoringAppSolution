@@ -3,21 +3,29 @@
     x:Class="PowerMonitoringApp.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:PowerMonitoringApp"
     xmlns:views="clr-namespace:PowerMonitoringApp.Views"
     Shell.FlyoutBehavior="Flyout"
     Title="PowerMonitoringApp">
 
-    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
-        <ShellContent Title="Power Meter"
-               Icon="graph.png"
-               ContentTemplate="{DataTemplate views:PowerMeterPage}" />
-        <ShellContent Title="Voltage and Current"
-               Icon="meter.png"
-               ContentTemplate="{DataTemplate views:VoltageAndCurrentMeterPage}" />
-        <!--<ShellContent Title="Voltage and Current"
-               Icon="meter.png"
-               ContentTemplate="{DataTemplate views:FrequencyMeterPage}" />-->
-    </FlyoutItem>
+    <ShellContent 
+        Route="LoginPage" 
+        Shell.FlyoutBehavior="Disabled"
+        ContentTemplate="{DataTemplate views:LoginPage}" />
+    <ShellContent 
+        Route="SignUpPage"
+        Shell.FlyoutBehavior="Disabled"
+        ContentTemplate="{DataTemplate views:SignUpPage}"/>
 
+    <TabBar FlyoutDisplayOptions="AsMultipleItems">
+        <ShellContent 
+            Route="VoltageAndCurrentMeterPage"
+            Title="Voltage and Current"
+            Icon="meter.png"
+            ContentTemplate="{DataTemplate views:VoltageAndCurrentMeterPage}" />
+        <ShellContent 
+            Route="PowerMeterPage"
+            Title="Power Meter"
+            Icon="graph.png"
+            ContentTemplate="{DataTemplate views:PowerMeterPage}" />
+    </TabBar>
 </Shell>

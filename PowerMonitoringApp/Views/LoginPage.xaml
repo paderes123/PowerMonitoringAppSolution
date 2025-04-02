@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="PowerMonitoringApp.Views.LoginPage"
-             Title="LoginPage">
+             xmlns:viewModels="clr-namespace:PowerMonitoringApp.ViewModels"
+             x:DataType="viewModels:LoginViewModel"
+             x:Class="PowerMonitoringApp.Views.LoginPage"> <!--try remove later - flyoutbehavior-->
     <VerticalStackLayout>
         <ScrollView>
-            <StackLayout Padding="30" Spacing="20">
+            <StackLayout Padding="30,70,30,30" Spacing="20">
                 <!-- Logo -->
                 <Image Source="appiconlogo.png" HeightRequest="130" HorizontalOptions="Center" />
 
@@ -26,7 +27,7 @@
                 <Label Text="Forgot password?" TextColor="Blue" HorizontalOptions="End" />
 
                 <!-- Continue Button -->
-                <Button Text="Continue" TextColor="White" />
+                <Button Text="Continue" TextColor="White" Command="{Binding GoToHomePageCommand}"/>
 
                 <!-- OR Divider -->
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
@@ -60,7 +61,7 @@
                     <Label Text="Don't have an account? " />
                     <Label Text="Sign up" TextColor="Blue">
                         <Label.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                            <TapGestureRecognizer Command="{Binding GoToSignUpCommand}"/>
                         </Label.GestureRecognizers>
                     </Label>
                 </StackLayout>

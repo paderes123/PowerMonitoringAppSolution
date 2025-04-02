@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using PowerMonitoringApp.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,9 +40,15 @@ namespace PowerMonitoringApp.ViewModels
         }
 
         [RelayCommand]
-        async Task SignUpAsync()
+        async Task GoToHomePageAsync()
         {
+            await Shell.Current.GoToAsync($"//{nameof(PowerMeterPage)}");
+        }
 
+        [RelayCommand]
+        async Task GoToSignUpAsync()
+        {
+            await Shell.Current.GoToAsync($"//{nameof(SignUpPage)}");
         }
     }
 }
