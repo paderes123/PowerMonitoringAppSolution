@@ -6,26 +6,49 @@
     xmlns:views="clr-namespace:PowerMonitoringApp.Views"
     Shell.FlyoutBehavior="Flyout"
     Title="PowerMonitoringApp">
+    <Shell.FlyoutHeader>
+        <StackLayout Orientation="Horizontal">
+            <Image Source="dotnet_bot.png"
+                   HeightRequest="100"
+                   WidthRequest="100"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Start"
+                   Aspect="AspectFit" />
 
-    <ShellContent 
-        Route="LoginPage" 
-        Shell.FlyoutBehavior="Disabled"
-        ContentTemplate="{DataTemplate views:LoginPage}" />
-    <ShellContent 
-        Route="SignUpPage"
-        Shell.FlyoutBehavior="Disabled"
-        ContentTemplate="{DataTemplate views:SignUpPage}"/>
+            <StackLayout VerticalOptions="Center">
+                <Label 
+                    Text="Bryan" 
+                    HorizontalOptions="Start"
+                    FontSize="14"  />
+                <Label 
+                    Text="b@gmail.com" 
+                    FontSize="14" 
+                    HorizontalOptions="Center" />
+            </StackLayout>
+        </StackLayout>
+    </Shell.FlyoutHeader>
 
     <TabBar FlyoutDisplayOptions="AsMultipleItems">
         <ShellContent 
+            Shell.FlyoutBehavior="Flyout"
             Route="VoltageAndCurrentMeterPage"
             Title="Voltage and Current"
             Icon="meter.png"
             ContentTemplate="{DataTemplate views:VoltageAndCurrentMeterPage}" />
         <ShellContent 
+            Shell.FlyoutBehavior="Flyout"
             Route="PowerMeterPage"
             Title="Power Meter"
             Icon="graph.png"
             ContentTemplate="{DataTemplate views:PowerMeterPage}" />
     </TabBar>
+    
+    <ShellContent 
+         Route="LoginPage" 
+         Shell.FlyoutBehavior="Disabled"
+         ContentTemplate="{DataTemplate views:LoginPage}" />
+    <ShellContent 
+         Route="SignUpPage"
+         Shell.FlyoutBehavior="Disabled"
+         ContentTemplate="{DataTemplate views:SignUpPage}"/>
 </Shell>
