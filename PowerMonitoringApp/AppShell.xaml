@@ -27,6 +27,15 @@
             </StackLayout>
         </StackLayout>
     </Shell.FlyoutHeader>
+    
+    <ShellContent 
+         Route="LoginPage" 
+         Shell.FlyoutBehavior="Disabled"
+         ContentTemplate="{DataTemplate views:LoginPage}" />
+    <ShellContent 
+         Route="SignUpPage"
+         Shell.FlyoutBehavior="Disabled"
+         ContentTemplate="{DataTemplate views:SignUpPage}"/>
 
     <TabBar FlyoutDisplayOptions="AsMultipleItems">
         <ShellContent 
@@ -43,12 +52,4 @@
             ContentTemplate="{DataTemplate views:PowerMeterPage}" />
     </TabBar>
     
-    <ShellContent 
-         Route="LoginPage" 
-         Shell.FlyoutBehavior="Disabled"
-         ContentTemplate="{DataTemplate views:LoginPage}" />
-    <ShellContent 
-         Route="SignUpPage"
-         Shell.FlyoutBehavior="Disabled"
-         ContentTemplate="{DataTemplate views:SignUpPage}"/>
 </Shell>

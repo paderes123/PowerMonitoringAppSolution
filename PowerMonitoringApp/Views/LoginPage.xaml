@@ -24,7 +24,7 @@
                 <Label Text="Wrong email or password" TextColor="Red" IsVisible="False" />
 
                 <!-- Forgot Password -->
-                <Label Text="Forgot password?" TextColor="Blue" HorizontalOptions="End" />
+                <Label Text="Forgot password?" TextColor="{AppThemeBinding Light=Blue, Dark=LightBlue}" HorizontalOptions="End" />
 
                 <!-- Continue Button -->
                 <Button Text="Continue" TextColor="White" Command="{Binding GoToHomePageCommand}"/>
@@ -43,8 +43,8 @@
                         HorizontalOptions="Center" 
                         Text="Continue with Google     " 
                         ImageSource="google.png" 
-                        BackgroundColor="Transparent" 
-                        TextColor="Black">
+                        BackgroundColor="Transparent"
+                        TextColor="{AppThemeBinding Light=Black, Dark=White}">
                 </Button>
                 <Button BorderColor="Black" 
                         HeightRequest="50"
@@ -54,12 +54,12 @@
                         Text="Continue with Facebook" 
                         ImageSource="facebook.png" 
                         BackgroundColor="Transparent" 
-                        TextColor="Black" />
+                        TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
 
                 <!-- Sign Up Link -->
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                    <Label Text="Don't have an account? " />
-                    <Label Text="Sign up" TextColor="Blue">
+                    <Label Text="Don't have an account?" />
+                    <Label Text=" Sign up" TextColor="{AppThemeBinding Light=Blue, Dark=LightBlue}">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding GoToSignUpCommand}"/>
                         </Label.GestureRecognizers>

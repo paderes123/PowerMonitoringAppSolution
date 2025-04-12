@@ -44,7 +44,7 @@
                     Text="Sign up with Google     " 
                     ImageSource="google.png" 
                     BackgroundColor="Transparent" 
-                    TextColor="Black">
+                    TextColor="{AppThemeBinding Light=Black, Dark=White}">
                 </Button>
                 <Button BorderColor="Black" 
                     HeightRequest="50"
@@ -54,12 +54,12 @@
                     Text="Sign up with Facebook" 
                     ImageSource="facebook.png" 
                     BackgroundColor="Transparent" 
-                    TextColor="Black" />
+                    TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
 
                 <!-- Log In Link -->
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                    <Label Text="Already have an account? " />
-                    <Label Text="Log in" TextColor="Blue">
+                    <Label Text="Already have an account?" />
+                    <Label Text=" Log in" TextColor="{AppThemeBinding Light=Blue, Dark=LightBlue}">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding GoToLoginCommand}"/>
                         </Label.GestureRecognizers>
