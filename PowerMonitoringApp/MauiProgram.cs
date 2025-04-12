@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Firebase.Auth;
+using Firebase.Auth.Providers;
+using Microsoft.Extensions.Logging;
 using PowerMonitoringApp.Services;
 using PowerMonitoringApp.Services.Interfaces;
 using PowerMonitoringApp.ViewModels;
@@ -28,9 +30,25 @@ public static class MauiProgram
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
-
         builder.Services.AddSingleton<AppShell>();
+
+        var firebaseAuthConfig = new FirebaseAuthConfig
+        {
+            ApiKey = "AIzaSyAgBmw4yMR8y7cu8WJgXSSa5j4UP1Q_Xr8",
+            AuthDomain = "scenic-scholar-380010.firebaseapp.com",
+            Providers = new FirebaseAuthProvider[]
+                {
+                    // Add and configure individual providers
+                    new GoogleProvider().AddScopes("paderesbryan08@gmail.com"),
+                    new EmailProvider()
+                    // ...
+                }
+        };
+        var firebaseAuthClient = new FirebaseAuthClient(firebaseAuthConfig);
+
+
         // Register other Services  
+        builder.Services.AddSingleton<FirebaseAuthClient>(firebaseAuthClient);
         builder.Services.AddSingleton<IConnectivity>(Connectivity.Current);
         builder.Services.AddSingleton<IPowerMeterService, FirebasePowerMeterService>();
         builder.Services.AddTransient<IAuthService, FirebaseAuthService>();
