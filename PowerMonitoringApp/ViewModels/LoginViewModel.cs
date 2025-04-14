@@ -42,7 +42,7 @@ namespace PowerMonitoringApp.ViewModels
         }
 
         [RelayCommand]
-        async Task GoToHomePageAsync()
+        async Task TryToLoginPageAsync()
         {
             var (isSuccess, message) = await _authService.TryLoginClientAsync(Email, Password);
             if (!isSuccess)

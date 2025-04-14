@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using PowerMonitoringApp.Services.Interfaces;
 using PowerMonitoringApp.Views;
 using System;
@@ -17,11 +18,23 @@ namespace PowerMonitoringApp.ViewModels
             _authService = authService;
         }
 
+        [ObservableProperty] private string _email;
+        [ObservableProperty] private string _password;
+        [ObservableProperty] private string _displayName;
+
         [RelayCommand]
-        async Task GoToHomePageAsync()
+        async Task TryToSignUpPageAsync()
         {
-            //_authService
-            await Shell.Current.GoToAsync($"//{nameof(PowerMeterPage)}");
+            var(isSuccess, message) = await _authService.TrySignUpClientAsync(Email, Password, DisplayName);
+            if (!isSuccess)
+            {
+                await Shell.Current.DisplayAlert("Sign up Failed", message, "OK");
+            }
+            else
+            {
+                await Shell.Current.DisplayAlert("Successfully Signed up", message, "OK");
+                await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
+            }
         }
 
         [RelayCommand]

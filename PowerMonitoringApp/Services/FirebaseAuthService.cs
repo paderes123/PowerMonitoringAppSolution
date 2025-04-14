@@ -37,16 +37,17 @@ namespace PowerMonitoringApp.Services.Interfaces
         }
 
 
-        public async Task SignUpClientAsync(string email, string password, string displayName)
+        public async Task<(bool IsSuccess, string ErrorMessage)> TrySignUpClientAsync(string email, string password, string displayName)
         {
             UserCredential? userCredential;
             try
             {
                 userCredential = await _firebaseAuthClient.CreateUserWithEmailAndPasswordAsync(email, password, displayName);
+                return (true, string.Empty);
             }
             catch (FirebaseAuthHttpException ex)
             {
-                await Shell.Current.DisplayAlert("User Info", ex.Reason.ToString(), "OK");
+                return (false, ex.Reason.ToString());
             }
         }
     }

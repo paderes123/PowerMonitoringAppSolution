@@ -27,7 +27,7 @@
                 <Label Text="Error message" TextColor="Red" IsVisible="False" />
 
                 <!-- Sign Up Button -->
-                <Button Text="Sign Up" TextColor="White" Command="{Binding GoToHomePageCommand}"/>
+                <Button Text="Sign Up" TextColor="White" Command="{Binding TryToSignUpPageCommand}"/>
 
                 <!-- OR Divider -->
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">

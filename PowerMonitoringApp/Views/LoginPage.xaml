@@ -27,7 +27,7 @@
                 <Label Text="Forgot password?" TextColor="{AppThemeBinding Light=Blue, Dark=LightBlue}" HorizontalOptions="End" />
 
                 <!-- Continue Button -->
-                <Button Text="Continue" TextColor="White" Command="{Binding GoToHomePageCommand}"/>
+                <Button Text="Continue" TextColor="White" Command="{Binding TryToLoginPageCommand}"/>
 
                 <!-- OR Divider -->
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
