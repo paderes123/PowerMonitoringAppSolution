@@ -13,7 +13,7 @@ namespace PowerMonitoringApp.Services.Interfaces
         //Task<(string Uid, string IdToken)?> SignInWithGoogleAsync(string googleIdToken);
         //Task<(string Uid, string IdToken)?> SignInWithFacebookAsync(string facebookAccessToken); // Added for Facebook
         //Task ResetPasswordAsync(string email);
-        Task<bool> IsValidClientLoginAsync(string email, string password);
+        Task<(bool IsSuccess, string ErrorMessage)> TryLoginClientAsync(string email, string password);
     }
 
 }

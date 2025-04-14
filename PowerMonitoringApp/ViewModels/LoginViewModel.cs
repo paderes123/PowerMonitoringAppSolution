@@ -1,4 +1,6 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using PowerMonitoringApp.Services.Interfaces;
 using PowerMonitoringApp.Views;
 using System;
 using System.Collections.Generic;
@@ -10,15 +12,15 @@ namespace PowerMonitoringApp.ViewModels
 {
     public partial class LoginViewModel : BaseViewModel
     {
-        public LoginViewModel()
+        private IAuthService _authService;
+
+        [ObservableProperty] private string _email;
+
+        [ObservableProperty] private string _password;
+        public LoginViewModel(IAuthService authService)
         {
             Title = "Login";
-        }
-
-        [RelayCommand]
-        async Task LoginAsync()
-        {
-
+            _authService = authService;
         }
 
         [RelayCommand]
@@ -42,7 +44,15 @@ namespace PowerMonitoringApp.ViewModels
         [RelayCommand]
         async Task GoToHomePageAsync()
         {
-            await Shell.Current.GoToAsync($"//{nameof(PowerMeterPage)}");
+            var (isSuccess, message) = await _authService.TryLoginClientAsync(Email, Password);
+            if (!isSuccess)
+            {
+                await Shell.Current.DisplayAlert("Login Failed", message, "OK");
+            }
+            else
+            {
+                await Shell.Current.GoToAsync($"//{nameof(PowerMeterPage)}");
+            }
         }
 
         [RelayCommand]

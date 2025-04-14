@@ -1,4 +1,6 @@
-﻿using Firebase.Auth;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Firebase.Auth;
+using PowerMonitoringApp.ViewModels;
 
 namespace PowerMonitoringApp.Services.Interfaces
 {
@@ -11,17 +13,29 @@ namespace PowerMonitoringApp.Services.Interfaces
             _firebaseAuthClient = firebaseAuthClient;
         }
 
-        public async Task<bool> IsValidClientLoginAsync(string email, string password)
+        public async Task<(bool IsSuccess, string ErrorMessage)> TryLoginClientAsync(string email, string password)
         {
-            var userCredential = await _firebaseAuthClient.SignInWithEmailAndPasswordAsync(email, password);
+            try
+            {
+                var userCredential = await _firebaseAuthClient.SignInWithEmailAndPasswordAsync(email, password);
 
-            // user and auth properties
-            var user = userCredential.User;
-            var uid = user.Uid;
-            var name = user.Info.DisplayName; // more properties are available in user.Info
-            var refreshToken = user.Credential.RefreshToken; // more properties are available in user.Credential
-            return true;
+                if (userCredential?.User == null)
+                {
+                    return (false, "Invalid user credentials.");
+                }
+
+                return (true, string.Empty);
+            }
+            catch (FirebaseAuthException ex)
+            {
+                return (false, $"Login failed: {ex.Reason}");
+            }
+            catch (Exception ex)
+            {
+                return (false, $"Unexpected error: {ex.Message}");
+            }
         }
+
 
         public async Task SignUpClientAsync(string email, string password, string displayName)
         {

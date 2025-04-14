@@ -15,10 +15,10 @@
                 <Label Text="Log in or sign up to continue" FontSize="14" HorizontalOptions="Center" />
 
                 <!-- Email Entry -->
-                <Entry Placeholder="Email address" Text="soquirkyandrandom@example.com" />
+                <Entry Placeholder="Email address" Text="{Binding Email}" />
 
                 <!-- Password Entry -->
-                <Entry Placeholder="Password" IsPassword="True" />
+                <Entry Placeholder="Password" Text="{Binding Password}" IsPassword="True" />
 
                 <!-- Error Message -->
                 <Label Text="Wrong email or password" TextColor="Red" IsVisible="False" />
