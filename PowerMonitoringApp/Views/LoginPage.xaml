@@ -28,6 +28,11 @@
 
                 <!-- Continue Button -->
                 <Button Text="Continue" TextColor="White" Command="{Binding TryToLoginPageCommand}"/>
+                <ActivityIndicator
+                    Grid.Column="0"
+                    VerticalOptions="Center"
+                    IsRunning="{Binding IsBusy}"
+                    IsVisible="{Binding IsBusy}"/>
 
                 <!-- OR Divider -->
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">

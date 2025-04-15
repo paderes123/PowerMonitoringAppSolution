@@ -44,7 +44,9 @@ namespace PowerMonitoringApp.ViewModels
         [RelayCommand]
         async Task TryToLoginPageAsync()
         {
+            IsBusy = true;
             var (isSuccess, message) = await _authService.TryLoginClientAsync(Email, Password);
+            IsBusy = false;
             if (!isSuccess)
             {
                 await Shell.Current.DisplayAlert("Login Failed", message, "OK");

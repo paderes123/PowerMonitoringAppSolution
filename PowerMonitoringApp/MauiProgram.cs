@@ -1,4 +1,5 @@
-﻿using Firebase.Auth;
+﻿using CommunityToolkit.Maui;
+using Firebase.Auth;
 using Firebase.Auth.Providers;
 using Microsoft.Extensions.Logging;
 using PowerMonitoringApp.Services;
@@ -18,6 +19,7 @@ public static class MauiProgram
 	{
 		var builder = MauiApp.CreateBuilder();
 		builder
+            .UseMauiCommunityToolkit()
             .ConfigureSyncfusionToolkit()
             .ConfigureSyncfusionCore()
             .UseMauiApp<App>()

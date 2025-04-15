@@ -2,8 +2,16 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PowerMonitoringApp.Views.SignUpPage"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:viewModels="clr-namespace:PowerMonitoringApp.ViewModels"
+             xmlns:converters="clr-namespace:PowerMonitoringApp.Converters"
              x:DataType="viewModels:SignUpViewModel">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:EmailFormatValidator x:Key="EmailFormatValidator"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
     <VerticalStackLayout>
         <ScrollView>
             <StackLayout Padding="30,70,30,30" Spacing="20">
@@ -15,19 +23,36 @@
                 <Label Text="Sign up to get started" FontSize="14" HorizontalOptions="Center" />
 
                 <!-- Email Entry -->
-                <Entry Placeholder="Email address" />
+                <Editor Placeholder="Email address" Text="{Binding Email}">
+                    <Editor.Behaviors>
+                        <toolkit:TextValidationBehavior
+                            IsValid="{Binding IsEmailValid}"
+                            Flags="ValidateOnAttaching, ValidateOnValueChanged"
+                            MinimumLength="5">
+                        </toolkit:TextValidationBehavior>
+                    </Editor.Behaviors>
+                </Editor>
+
+                <!-- Email Entry -->
+                <Editor Placeholder="Your Name" Text="{Binding DisplayName}"/>
 
                 <!-- Password Entry -->
-                <Entry Placeholder="Password" IsPassword="True" />
+                <Entry Placeholder="Password" IsPassword="True" Text="{Binding Password}"/>
+
 
                 <!-- Confirm Password Entry -->
-                <Entry Placeholder="Confirm Password" IsPassword="True" />
+                <Entry Placeholder="Confirm Password" IsPassword="True" Text="{Binding ConfirmPassword}"/>
 
                 <!-- Error Message -->
                 <Label Text="Error message" TextColor="Red" IsVisible="False" />
 
                 <!-- Sign Up Button -->
                 <Button Text="Sign Up" TextColor="White" Command="{Binding TryToSignUpPageCommand}"/>
+                <ActivityIndicator
+                    Grid.Column="0"
+                    VerticalOptions="Center"
+                    IsRunning="{Binding IsBusy}"
+                    IsVisible="{Binding IsBusy}"/>
 
                 <!-- OR Divider -->
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
