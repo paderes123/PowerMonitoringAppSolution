@@ -5,6 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:PowerMonitoringApp.Views"
     Shell.FlyoutBehavior="Flyout"
+    xmlns:viewModels="clr-namespace:PowerMonitoringApp.ViewModels"
+    x:DataType="viewModels:ShellViewModel"
     Title="PowerMonitoringApp">
     <Shell.FlyoutHeader>
         <StackLayout Orientation="Horizontal">
@@ -17,11 +19,11 @@
 
             <StackLayout VerticalOptions="Center">
                 <Label 
-                    Text="Bryan" 
+                    Text="{Binding DisplayName}"
                     HorizontalOptions="Start"
                     FontSize="14"  />
                 <Label 
-                    Text="b@gmail.com" 
+                    Text="{Binding Email}"
                     FontSize="14" 
                     HorizontalOptions="Center" />
             </StackLayout>

@@ -17,7 +17,7 @@ namespace PowerMonitoringApp.Services
         {
             _authService = authService;
             // Get the auth token registered from Preferences
-            var authToken = Preferences.Get("authToken", null);
+            var authToken = Preferences.Get("AuthToken", null);
             _firebaseClient = new FirebaseClient("https://scenic-scholar-380010-default-rtdb.asia-southeast1.firebasedatabase.app/", new FirebaseOptions
             {
                 AuthTokenAsyncFactory = () => Task.FromResult(authToken)

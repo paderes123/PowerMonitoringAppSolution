@@ -21,8 +21,7 @@ namespace PowerMonitoringApp.Services.Interfaces
                 {       
                     return (false, "Invalid user credentials.");
                 }
-                Preferences.Set("Uid", userCredential.User.Uid);
-                Preferences.Set("authToken", await userCredential.User.GetIdTokenAsync());
+                await InitializeUserPreferences(userCredential);
                 return (true, string.Empty);
             }
             catch (FirebaseAuthException ex)
@@ -46,6 +45,17 @@ namespace PowerMonitoringApp.Services.Interfaces
             catch (FirebaseAuthHttpException ex)
             {
                 return (false, ex.Reason.ToString());
+            }
+        }
+
+        private async Task InitializeUserPreferences(UserCredential? userCredential)
+        {
+            if (userCredential != null)
+            {
+                Preferences.Set("Uid", userCredential.User.Uid);
+                Preferences.Set("AuthToken", await userCredential.User.GetIdTokenAsync());
+                Preferences.Set("DisplayName", userCredential.User.Info.DisplayName);
+                Preferences.Set("Email", userCredential.User.Info.Email);
             }
         }
     }

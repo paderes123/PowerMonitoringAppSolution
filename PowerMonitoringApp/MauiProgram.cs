@@ -60,6 +60,7 @@ public static class MauiProgram
         builder.Services.AddTransient<VoltageAndCurrentMeterViewModel>();
         builder.Services.AddTransient<LoginViewModel>();
         builder.Services.AddTransient<SignUpViewModel>();
+        builder.Services.AddTransient<ShellViewModel>();
 
         //Register the pages
         builder.Services.AddTransient<LoginPage>();
