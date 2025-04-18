@@ -22,8 +22,12 @@ namespace PowerMonitoringApp.ViewModels
         [ObservableProperty] private string _password;
         [ObservableProperty] private string _confirmPassword;
         [ObservableProperty] private string _displayName;
+        [ObservableProperty] private string _otherErrorMessage;
 
+        [ObservableProperty] private bool _isDisplayNameValid;
         [ObservableProperty] private bool _isEmailValid;
+        [ObservableProperty] private bool _isNotValidSignUp;
+
 
         [RelayCommand]
         async Task TryToSignUpPageAsync()
@@ -31,30 +35,34 @@ namespace PowerMonitoringApp.ViewModels
             IsBusy = true;
             if (!IsEmailValid)
             {
-                await Shell.Current.DisplayAlert("Invalid Email", "Please enter a valid email.", "OK");
+                IsBusy = false;
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(DisplayName))
+            if (!IsDisplayNameValid)
             {
-                await Shell.Current.DisplayAlert("Missing Information", "Please fill in the name", "OK");
+                IsBusy = false;
                 return;
             }
 
             if (ConfirmPassword != Password)
             {
-                await Shell.Current.DisplayAlert("Password Mismatch", "The password and confirmation password do not match.", "OK");
+                IsNotValidSignUp = true;
+                OtherErrorMessage = "The password and confirmation password do not match.";
+                IsBusy = false;
                 return;
             }
 
             var (isSuccess, message) = await _authService.TrySignUpClientAsync(Email, Password, DisplayName);
             if (!isSuccess)
             {
-                await Shell.Current.DisplayAlert("Sign Up Failed", message, "OK");
+                IsNotValidSignUp = true;
+                OtherErrorMessage = message;
+                IsBusy = false;
                 return;
             }
             IsBusy = false;
-
+            IsNotValidSignUp = false;
             await Shell.Current.DisplayAlert("Success", message, "OK");
             await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
         }

@@ -14,40 +14,85 @@
     
     <VerticalStackLayout>
         <ScrollView>
-            <StackLayout Padding="30,70,30,30" Spacing="20">
+            <StackLayout Padding="30,70,30,30">
                 <!-- Logo -->
-                <Image Source="appiconlogo.png" HeightRequest="130" HorizontalOptions="Center" />
+                <Image Margin="0,0,0,20" Source="appiconlogo.png" HeightRequest="130" HorizontalOptions="Center" />
 
                 <!-- Welcome Text -->
-                <Label Text="Create an Account" FontSize="24" HorizontalOptions="Center" />
-                <Label Text="Sign up to get started" FontSize="14" HorizontalOptions="Center" />
+                <Label Margin="0,0,0,20"  Text="Create an Account" FontSize="24" HorizontalOptions="Center" />
+                <Label Margin="0,0,0,20"  Text="Sign up to get started" FontSize="14" HorizontalOptions="Center" />
 
                 <!-- Email Entry -->
-                <Editor Placeholder="Email address" Text="{Binding Email}">
-                    <Editor.Behaviors>
+                <Entry x:Name="EmailEntry" Placeholder="Email address" Text="{Binding Email}">
+                    <Entry.Behaviors>
                         <toolkit:TextValidationBehavior
                             IsValid="{Binding IsEmailValid}"
-                            Flags="ValidateOnAttaching, ValidateOnValueChanged"
+                            Flags="ValidateOnValueChanged"
+                            x:Name="EmailValidator"
                             MinimumLength="5">
                         </toolkit:TextValidationBehavior>
-                    </Editor.Behaviors>
-                </Editor>
+                    </Entry.Behaviors>
+                </Entry>
+                <Label Margin="0,0,0,10" Text="Please enter a valid email format."
+                    TextColor="Red"
+                    FontSize="Small">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label"
+                          Binding="{Binding Source={x:Reference EmailEntry}, Path=Text, Converter={StaticResource EmailFormatValidator}}"
+                          Value="False">
+                            <Setter Property="IsVisible" Value="True" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Label"
+                          Binding="{Binding Source={x:Reference EmailEntry}, Path=Text, Converter={StaticResource EmailFormatValidator}}"
+                          Value="True">
+                            <Setter Property="IsVisible" Value="False" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
 
                 <!-- Email Entry -->
-                <Editor Placeholder="Your Name" Text="{Binding DisplayName}"/>
+                <Entry Placeholder="Your Name" 
+                       Text="{Binding DisplayName}"
+                       x:Name="DisplayNameEntry">
+                    <Entry.Behaviors>
+                        <toolkit:TextValidationBehavior
+                         IsValid="{Binding IsDisplayNameValid}"
+                         x:Name="DisplayNameValidator"
+                         Flags="ValidateOnAttaching, ValidateOnValueChanged"
+                         MinimumLength="1" />
+                    </Entry.Behaviors>
+                </Entry>
+                <Label Text="Name is required"
+                    TextColor="Red"
+                    FontSize="Small">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label"
+                              Binding="{Binding Source={x:Reference DisplayNameValidator}, Path=IsValid}"
+                              Value="False">
+                            <Setter Property="IsVisible" Value="True" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Label"
+                              Binding="{Binding Source={x:Reference DisplayNameValidator}, Path=IsValid}"
+                              Value="True">
+                            <Setter Property="IsVisible" Value="False" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
 
                 <!-- Password Entry -->
                 <Entry Placeholder="Password" IsPassword="True" Text="{Binding Password}"/>
 
-
                 <!-- Confirm Password Entry -->
                 <Entry Placeholder="Confirm Password" IsPassword="True" Text="{Binding ConfirmPassword}"/>
-
                 <!-- Error Message -->
-                <Label Text="Error message" TextColor="Red" IsVisible="False" />
+                <Label Margin="0,0,0,20" 
+                       Text="{Binding OtherErrorMessage}" 
+                       IsVisible="{Binding IsNotValidSignUp}" 
+                       TextColor="Red"  />
+                <BoxView Margin="0,0,0,20"/>
 
                 <!-- Sign Up Button -->
-                <Button Text="Sign Up" TextColor="White" Command="{Binding TryToSignUpPageCommand}"/>
+                <Button Margin="0,0,0,20" Text="Sign Up" TextColor="White" Command="{Binding TryToSignUpPageCommand}"/>
                 <ActivityIndicator
                     Grid.Column="0"
                     VerticalOptions="Center"
@@ -55,14 +100,14 @@
                     IsVisible="{Binding IsBusy}"/>
 
                 <!-- OR Divider -->
-                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                <StackLayout Margin="0,0,0,20" Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
                     <BoxView HeightRequest="1" WidthRequest="100" BackgroundColor="Gray" VerticalOptions="Center" />
                     <Label Text="OR" Margin="10,0,10,0" HorizontalOptions="Center" VerticalOptions="Center" />
                     <BoxView HeightRequest="1" WidthRequest="100" BackgroundColor="Gray" VerticalOptions="Center" />
                 </StackLayout>
 
                 <!-- Social Sign Up Buttons -->
-                <Button BorderColor="Black"
+                <Button Margin="0,0,0,20" BorderColor="Black"
                     HeightRequest="50"
                     BorderWidth="1" WidthRequest="300"
                     HorizontalOptions="Center" 
@@ -71,15 +116,6 @@
                     BackgroundColor="Transparent" 
                     TextColor="{AppThemeBinding Light=Black, Dark=White}">
                 </Button>
-                <Button BorderColor="Black" 
-                    HeightRequest="50"
-                    BorderWidth="1"
-                    WidthRequest="300"
-                    HorizontalOptions="Center"
-                    Text="Sign up with Facebook" 
-                    ImageSource="facebook.png" 
-                    BackgroundColor="Transparent" 
-                    TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
 
                 <!-- Log In Link -->
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
