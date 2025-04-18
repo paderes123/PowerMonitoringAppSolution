@@ -1,6 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Firebase.Auth;
-using PowerMonitoringApp.ViewModels;
+﻿using Firebase.Auth;
 
 namespace PowerMonitoringApp.Services.Interfaces
 {
@@ -20,10 +18,11 @@ namespace PowerMonitoringApp.Services.Interfaces
                 var userCredential = await _firebaseAuthClient.SignInWithEmailAndPasswordAsync(email, password);
 
                 if (userCredential?.User == null)
-                {
+                {       
                     return (false, "Invalid user credentials.");
                 }
-
+                Preferences.Set("Uid", userCredential.User.Uid);
+                Preferences.Set("authToken", await userCredential.User.GetIdTokenAsync());
                 return (true, string.Empty);
             }
             catch (FirebaseAuthException ex)
@@ -33,9 +32,8 @@ namespace PowerMonitoringApp.Services.Interfaces
             catch (Exception ex)
             {
                 return (false, $"Unexpected error: {ex.Message}");
-            }
+            }       
         }
-
 
         public async Task<(bool IsSuccess, string ErrorMessage)> TrySignUpClientAsync(string email, string password, string displayName)
         {
