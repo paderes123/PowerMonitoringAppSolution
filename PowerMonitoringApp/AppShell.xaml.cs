@@ -6,10 +6,13 @@ namespace PowerMonitoringApp
 {
     public partial class AppShell : Shell
     {
-        public AppShell(ShellViewModel viewModel)
+        public AppShell()
         {
             InitializeComponent();
-            BindingContext = viewModel;
+
+            // Manually retrieve the registered service
+            ShellViewModel viewModel = IPlatformApplication.Current!.Services.GetRequiredService<ShellViewModel>();
+            BindingContext = viewModel; 
         }
     }
 }

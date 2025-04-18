@@ -12,7 +12,7 @@ namespace PowerMonitoringApp.ViewModels
         [ObservableProperty] private string _displayName;
         [ObservableProperty] private string _email;
 
-        public ShellViewModel()
+        public void InitializeUserProfile()
         {
             DisplayName = Preferences.Get("DisplayName", "");
             Email = Preferences.Get("Email", "");

@@ -53,7 +53,17 @@ namespace PowerMonitoringApp.ViewModels
             }
             else
             {
+                InitializeUserProfile();
                 await Shell.Current.GoToAsync($"//{nameof(PowerMeterPage)}");
+            }
+        }
+
+        private void InitializeUserProfile()
+        {
+            if (Shell.Current.BindingContext is ShellViewModel shellViewModel)
+            {
+                // call the method to Initialize User Profile Like Image, DisplayName or Email
+                shellViewModel.InitializeUserProfile();
             }
         }
 
