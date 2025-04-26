@@ -83,8 +83,6 @@ namespace PowerMonitoringApp.ViewModels
         private void OnPowerMeterDataChanged(object? sender, PowerMeter powerMeter)
         {
             PowerMeter = powerMeter;
-            PowerAndTimeLabel = $"Latest Power: {PowerMeter.Power:F2} Watts | Time: " +
-                        $"\nPower Factor: {PowerMeter.PowerFactor:F2} | Energy: {PowerMeter.Energy:F2} kWh | Frequency: {PowerMeter.Frequency:F2} Hz";
         }
     }
 }

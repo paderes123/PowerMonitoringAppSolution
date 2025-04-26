@@ -2,6 +2,7 @@
 using PowerMonitoringApp.Models;
 using PowerMonitoringApp.Services.Interfaces;
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Timers;
 
@@ -11,7 +12,6 @@ namespace PowerMonitoringApp.ViewModels
     {
         private readonly IPowerMeterService _powerMeterService;
         private readonly System.Timers.Timer _timer;
-        private int _seconds;
         private bool _isFetching;
 
         [ObservableProperty]
@@ -21,7 +21,7 @@ namespace PowerMonitoringApp.ViewModels
         private float _current; // Fixed naming consistency
 
         [ObservableProperty]
-        private string _status = "Loading..."; // Added for error/data feedback
+        private PowerMeter _powerMeter = new();
 
         public VoltageAndCurrentMeterViewModel(IPowerMeterService powerMeterService)
         {
@@ -31,52 +31,50 @@ namespace PowerMonitoringApp.ViewModels
             _timer = new System.Timers.Timer(1000); // Update every second
             _timer.Elapsed += OnTimedEvent;
             _timer.Start();
+
+            // Initialization for PowerMeterService Realtime data
+            // Subscribe to real-time updates
+            _powerMeterService.PowerMeterDataChanged += OnPowerMeterDataChanged;
+            // Start listening for updates
+            _powerMeterService.StartListeningForPowerMeterUpdates();
         }
 
         private async void OnTimedEvent(object? sender, ElapsedEventArgs e)
         {
-            //if (_isFetching) return;
-            //_isFetching = true;
-            //IsBusy = true; // Indicate fetching in progress
+            if (_isFetching) return;
+            _isFetching = true;
+            IsBusy = true; // Indicate fetching in progress
 
-            //try
-            //{
-            //    PowerMeter? powerMeter = await _powerMeterService.GetLatestPowerMeterDataAsync();
-            //    _seconds++;
-            //    string time = TimeSpan.FromSeconds(_seconds).ToString(@"hh\:mm\:ss");
+            try
+            {
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    if (PowerMeter != null)
+                    {
+                        Voltage = PowerMeter.Voltage;
+                        Current = PowerMeter.Current;
+                    }
+                    else
+                    {
+                        Voltage = 0;
+                        Current = 0;
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine($"Error fetching power meter data: {ex}");
+            }
+            finally
+            {
+                _isFetching = false;
+                IsBusy = false; // Reset busy state
+            }
+        }
 
-            //    MainThread.BeginInvokeOnMainThread(() =>
-            //    {
-            //        if (powerMeter != null)
-            //        {
-            //            Voltage = powerMeter.Voltage;
-            //            Current = powerMeter.Current;
-            //            Status = $"Updated at {time}";
-            //        }
-            //        else
-            //        {
-            //            Voltage = 0;
-            //            Current = 0;
-            //            Status = $"Data unavailable at {time}";
-            //        }
-            //    });
-            //}
-            //catch (Exception ex)
-            //{
-            //    MainThread.BeginInvokeOnMainThread(() =>
-            //    {
-            //        Voltage = 0;
-            //        Current = 0;
-            //        Status = $"Error: {ex.Message} at {TimeSpan.FromSeconds(_seconds).ToString(@"hh\:mm\:ss")}";
-            //    });
-            //    // Optional: Log the error to a file or service
-            //    Console.WriteLine($"Error fetching power meter data: {ex}");
-            //}
-            //finally
-            //{
-            //    _isFetching = false;
-            //    IsBusy = false; // Reset busy state
-            //}
+        private void OnPowerMeterDataChanged(object? sender, PowerMeter powerMeter)
+        {
+            PowerMeter = powerMeter;
         }
 
         protected override void Dispose(bool disposing)
@@ -85,6 +83,9 @@ namespace PowerMonitoringApp.ViewModels
             {
                 _timer.Stop();
                 _timer.Elapsed -= OnTimedEvent;
+
+                _powerMeterService.StopListeningForPowerMeterUpdates();
+                _powerMeterService.PowerMeterDataChanged -= OnPowerMeterDataChanged;
             }
             base.Dispose(disposing);
         }

@@ -4,8 +4,6 @@ namespace PowerMonitoringApp.Services.Interfaces
 {
     public interface IPowerMeterService
     {
-        //Task<PowerMeter?> GetLatestPowerMeterDataAsync();
-
         // Event to notify subscribers of PowerMeter data changes
         event EventHandler<PowerMeter>? PowerMeterDataChanged;
 
