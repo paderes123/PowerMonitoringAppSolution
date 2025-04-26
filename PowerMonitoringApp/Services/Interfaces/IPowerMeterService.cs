@@ -1,13 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PowerMonitoringApp.Models;
 
 namespace PowerMonitoringApp.Services.Interfaces
 {
     public interface IPowerMeterService
     {
-        Task<Models.PowerMeter?> GetLatestPowerMeterDataAsync();
+        //Task<PowerMeter?> GetLatestPowerMeterDataAsync();
+
+        // Event to notify subscribers of PowerMeter data changes
+        event EventHandler<PowerMeter>? PowerMeterDataChanged;
+
+        // Method to start listening for real-time updates
+        void StartListeningForPowerMeterUpdates();
+
+        // Method to stop listening for updates
+        void StopListeningForPowerMeterUpdates();
     }
 }

@@ -1,26 +1,4 @@
-﻿//using CommunityToolkit.Mvvm.ComponentModel;
-//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
-
-//namespace PowerMonitoringApp.ViewModels
-//{
-//    public partial class BaseViewModel : ObservableObject
-//    {
-//        [ObservableProperty]
-//        [NotifyPropertyChangedFor(nameof(IsNotBusy))]
-//        bool _isBusy;
-
-//        [ObservableProperty]
-//        string _title;
-
-//        public bool IsNotBusy => !IsBusy;
-//    }
-//}
-
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 
 namespace PowerMonitoringApp.ViewModels
