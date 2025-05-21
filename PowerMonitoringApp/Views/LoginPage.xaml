@@ -4,8 +4,8 @@
              xmlns:viewModels="clr-namespace:PowerMonitoringApp.ViewModels"
              x:DataType="viewModels:LoginViewModel"
              x:Class="PowerMonitoringApp.Views.LoginPage"> <!--try remove later - flyoutbehavior-->
-    <VerticalStackLayout>
-        <ScrollView>
+    <ScrollView>
+        <VerticalStackLayout>
             <StackLayout Padding="30,70,30,30" Spacing="20">
                 <!-- Logo -->
                 <Image Source="appiconlogo.png" HeightRequest="130" HorizontalOptions="Center" />
@@ -34,32 +34,33 @@
                     IsRunning="{Binding IsBusy}"
                     IsVisible="{Binding IsBusy}"/>
 
-                <!-- OR Divider -->
+                <!-- OR Divider --><!--
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
                     <BoxView HeightRequest="1" WidthRequest="100" BackgroundColor="Gray" VerticalOptions="Center" />
                     <Label Text="OR" Margin="10,0,10,0" HorizontalOptions="Center" VerticalOptions="Center" />
                     <BoxView HeightRequest="1" WidthRequest="100" BackgroundColor="Gray" VerticalOptions="Center" />
                 </StackLayout>
 
-                <!-- Social Login Buttons -->
+                --><!-- Social Login Buttons --><!--
                 <Button BorderColor="Black"
-                        HeightRequest="50"
-                        BorderWidth="1" WidthRequest="300"
-                        HorizontalOptions="Center" 
-                        Text="Continue with Google     " 
-                        ImageSource="google.png" 
-                        BackgroundColor="Transparent"
-                        TextColor="{AppThemeBinding Light=Black, Dark=White}">
+                    HeightRequest="50"
+                    BorderWidth="1" WidthRequest="300"
+                    HorizontalOptions="Center" 
+                    Text="Continue with Google     " 
+                    ImageSource="google.png" 
+                    BackgroundColor="Transparent"
+                    TextColor="{AppThemeBinding Light=Black, Dark=White}">
                 </Button>
+                
                 <Button BorderColor="Black" 
-                        HeightRequest="50"
-                        BorderWidth="1"
-                        WidthRequest="300"
-                        HorizontalOptions="Center"
-                        Text="Continue with Facebook" 
-                        ImageSource="facebook.png" 
-                        BackgroundColor="Transparent" 
-                        TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
+                    HeightRequest="50"
+                    BorderWidth="1"
+                    WidthRequest="300"
+                    HorizontalOptions="Center"
+                    Text="Continue with Facebook" 
+                    ImageSource="facebook.png" 
+                    BackgroundColor="Transparent" 
+                    TextColor="{AppThemeBinding Light=Black, Dark=White}"/>-->
 
                 <!-- Sign Up Link -->
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
@@ -71,6 +72,6 @@
                     </Label>
                 </StackLayout>
             </StackLayout>
-        </ScrollView>
-    </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

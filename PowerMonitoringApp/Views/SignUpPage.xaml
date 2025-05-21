@@ -11,122 +11,167 @@
             <converters:EmailFormatValidator x:Key="EmailFormatValidator"/>
         </ResourceDictionary>
     </ContentPage.Resources>
-    
-    <VerticalStackLayout>
-        <ScrollView>
-            <StackLayout Padding="30,70,30,30">
-                <!-- Logo -->
-                <Image Margin="0,0,0,20" Source="appiconlogo.png" HeightRequest="130" HorizontalOptions="Center" />
 
-                <!-- Welcome Text -->
-                <Label Margin="0,0,0,20"  Text="Create an Account" FontSize="24" HorizontalOptions="Center" />
-                <Label Margin="0,0,0,20"  Text="Sign up to get started" FontSize="14" HorizontalOptions="Center" />
+    <ScrollView>
+        <VerticalStackLayout Padding="30,70,30,30" Spacing="10">
+            <!-- Logo -->
+            <Image Margin="0,0,0,20" Source="appiconlogo.png" HeightRequest="130" HorizontalOptions="Center" />
 
-                <!-- Email Entry -->
-                <Entry x:Name="EmailEntry" Placeholder="Email address" Text="{Binding Email}">
-                    <Entry.Behaviors>
-                        <toolkit:TextValidationBehavior
+            <!-- Welcome Text -->
+            <Label Margin="0,0,0,20" Text="Create an Account" FontSize="24" HorizontalOptions="Center" />
+            <Label Margin="0,0,0,20" Text="Sign up to get started" FontSize="14" HorizontalOptions="Center" />
+
+            <!-- Email Entry -->
+            <Entry x:Name="EmailEntry" Placeholder="Email address" Text="{Binding Email}">
+                <Entry.Behaviors>
+                    <toolkit:TextValidationBehavior
                             IsValid="{Binding IsEmailValid}"
                             Flags="ValidateOnValueChanged"
                             x:Name="EmailValidator"
                             MinimumLength="5">
-                        </toolkit:TextValidationBehavior>
-                    </Entry.Behaviors>
-                </Entry>
-                <Label Margin="0,0,0,10" Text="Please enter a valid email format."
-                    TextColor="Red"
-                    FontSize="Small">
-                    <Label.Triggers>
-                        <DataTrigger TargetType="Label"
-                          Binding="{Binding Source={x:Reference EmailEntry}, Path=Text, Converter={StaticResource EmailFormatValidator}}"
-                          Value="False">
-                            <Setter Property="IsVisible" Value="True" />
-                        </DataTrigger>
-                        <DataTrigger TargetType="Label"
-                          Binding="{Binding Source={x:Reference EmailEntry}, Path=Text, Converter={StaticResource EmailFormatValidator}}"
-                          Value="True">
-                            <Setter Property="IsVisible" Value="False" />
-                        </DataTrigger>
-                    </Label.Triggers>
-                </Label>
+                    </toolkit:TextValidationBehavior>
+                </Entry.Behaviors>
+            </Entry>
+            <Label Margin="0,0,0,10" Text="Please enter a valid email format."
+                   TextColor="Red"
+                   FontSize="Small">
+                <Label.Triggers>
+                    <DataTrigger TargetType="Label"
+                                 Binding="{Binding Source={x:Reference EmailEntry}, Path=Text, Converter={StaticResource EmailFormatValidator}}"
+                                 Value="False">
+                        <Setter Property="IsVisible" Value="True" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="Label"
+                                 Binding="{Binding Source={x:Reference EmailEntry}, Path=Text, Converter={StaticResource EmailFormatValidator}}"
+                                 Value="True">
+                        <Setter Property="IsVisible" Value="False" />
+                    </DataTrigger>
+                </Label.Triggers>
+            </Label>
 
-                <!-- Email Entry -->
-                <Entry Placeholder="Your Name" 
-                       Text="{Binding DisplayName}"
-                       x:Name="DisplayNameEntry">
-                    <Entry.Behaviors>
-                        <toolkit:TextValidationBehavior
-                         IsValid="{Binding IsDisplayNameValid}"
-                         x:Name="DisplayNameValidator"
-                         Flags="ValidateOnAttaching, ValidateOnValueChanged"
-                         MinimumLength="1" />
-                    </Entry.Behaviors>
-                </Entry>
-                <Label Text="Name is required"
-                    TextColor="Red"
-                    FontSize="Small">
-                    <Label.Triggers>
-                        <DataTrigger TargetType="Label"
-                              Binding="{Binding Source={x:Reference DisplayNameValidator}, Path=IsValid}"
-                              Value="False">
-                            <Setter Property="IsVisible" Value="True" />
-                        </DataTrigger>
-                        <DataTrigger TargetType="Label"
-                              Binding="{Binding Source={x:Reference DisplayNameValidator}, Path=IsValid}"
-                              Value="True">
-                            <Setter Property="IsVisible" Value="False" />
-                        </DataTrigger>
-                    </Label.Triggers>
-                </Label>
+            <!-- FirstName Entry -->
+            <Entry Placeholder="First Name" 
+                   Text="{Binding FirstName}"
+                   x:Name="FirstNameEntry">
+                <Entry.Behaviors>
+                    <toolkit:TextValidationBehavior
+                        IsValid="{Binding IsFirstNameValid}"
+                        x:Name="FirstNameValidator"
+                        Flags="ValidateOnAttaching, ValidateOnValueChanged"
+                        MinimumLength="1" />
+                </Entry.Behaviors>
+            </Entry>
+            <Label Text="First Name is required"
+                   TextColor="Red"
+                   FontSize="Small">
+                <Label.Triggers>
+                    <DataTrigger TargetType="Label"
+                                 Binding="{Binding Source={x:Reference FirstNameValidator}, Path=IsValid}"
+                                 Value="False">
+                        <Setter Property="IsVisible" Value="True" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="Label"
+                                 Binding="{Binding Source={x:Reference FirstNameValidator}, Path=IsValid}"
+                                 Value="True">
+                        <Setter Property="IsVisible" Value="False" />
+                    </DataTrigger>
+                </Label.Triggers>
+            </Label>
 
-                <!-- Password Entry -->
-                <Entry Placeholder="Password" IsPassword="True" Text="{Binding Password}"/>
+            <!-- LastName Entry -->
+            <Entry Placeholder="Last Name" 
+                   Text="{Binding LastName}"
+                   x:Name="LastNameEntry">
+                <Entry.Behaviors>
+                    <toolkit:TextValidationBehavior
+                        IsValid="{Binding IsLastNameValid}"
+                        x:Name="LastNameValidator"
+                        Flags="ValidateOnAttaching, ValidateOnValueChanged"
+                        MinimumLength="1" />
+                </Entry.Behaviors>
+            </Entry>
+            <Label Text="Last Name is required"
+                   TextColor="Red"
+                   FontSize="Small">
+                <Label.Triggers>
+                    <DataTrigger TargetType="Label"
+                                 Binding="{Binding Source={x:Reference LastNameValidator}, Path=IsValid}"
+                                 Value="False">
+                        <Setter Property="IsVisible" Value="True" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="Label"
+                                 Binding="{Binding Source={x:Reference LastNameValidator}, Path=IsValid}"
+                                 Value="True">
+                        <Setter Property="IsVisible" Value="False" />
+                    </DataTrigger>
+                </Label.Triggers>
+            </Label>
 
-                <!-- Confirm Password Entry -->
-                <Entry Placeholder="Confirm Password" IsPassword="True" Text="{Binding ConfirmPassword}"/>
-                <!-- Error Message -->
-                <Label Margin="0,0,0,20" 
-                       Text="{Binding OtherErrorMessage}" 
-                       IsVisible="{Binding IsNotValidSignUp}" 
-                       TextColor="Red"  />
-                <BoxView Margin="0,0,0,20"/>
+            <!-- MiddleName Entry (Optional) -->
+            <Entry Placeholder="Middle Name (optional)" 
+                   Text="{Binding MiddleName}"
+                   x:Name="MiddleNameEntry">
+            </Entry>
 
-                <!-- Sign Up Button -->
-                <Button Margin="0,0,0,20" Text="Sign Up" TextColor="White" Command="{Binding TryToSignUpPageCommand}"/>
-                <ActivityIndicator
-                    Grid.Column="0"
+            <!-- Address Entry -->
+            <Entry Placeholder="Address" 
+                   Text="{Binding Address}"
+                   x:Name="AddressEntry">
+                <Entry.Behaviors>
+                    <toolkit:TextValidationBehavior
+                        IsValid="{Binding IsAddressValid}"
+                        x:Name="AddressValidator"
+                        Flags="ValidateOnAttaching, ValidateOnValueChanged"
+                        MinimumLength="5" />
+                </Entry.Behaviors>
+            </Entry>
+            <Label Text="Address is required"
+                   TextColor="Red"
+                   FontSize="Small">
+                <Label.Triggers>
+                    <DataTrigger TargetType="Label"
+                                 Binding="{Binding Source={x:Reference AddressValidator}, Path=IsValid}"
+                                 Value="False">
+                        <Setter Property="IsVisible" Value="True" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="Label"
+                                 Binding="{Binding Source={x:Reference AddressValidator}, Path=IsValid}"
+                                 Value="True">
+                        <Setter Property="IsVisible" Value="False" />
+                    </DataTrigger>
+                </Label.Triggers>
+            </Label>
+
+            <!-- Password Entry -->
+            <Entry Placeholder="Password" IsPassword="True" Text="{Binding Password}"/>
+
+            <!-- Confirm Password Entry -->
+            <Entry Placeholder="Confirm Password" IsPassword="True" Text="{Binding ConfirmPassword}"/>
+
+            <!-- Error Message -->
+            <Label Margin="0,0,0,20" 
+                   Text="{Binding OtherErrorMessage}" 
+                   IsVisible="{Binding IsNotValidSignUp}" 
+                   TextColor="Red" />
+
+            <BoxView Margin="0,0,0,20"/>
+
+            <!-- Sign Up Button -->
+            <Button Margin="0,0,0,20" Text="Sign Up" TextColor="White" Command="{Binding TryToSignUpPageCommand}"/>
+            <ActivityIndicator
                     VerticalOptions="Center"
                     IsRunning="{Binding IsBusy}"
                     IsVisible="{Binding IsBusy}"/>
 
-                <!-- OR Divider -->
-                <StackLayout Margin="0,0,0,20" Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
-                    <BoxView HeightRequest="1" WidthRequest="100" BackgroundColor="Gray" VerticalOptions="Center" />
-                    <Label Text="OR" Margin="10,0,10,0" HorizontalOptions="Center" VerticalOptions="Center" />
-                    <BoxView HeightRequest="1" WidthRequest="100" BackgroundColor="Gray" VerticalOptions="Center" />
-                </StackLayout>
-
-                <!-- Social Sign Up Buttons -->
-                <Button Margin="0,0,0,20" BorderColor="Black"
-                    HeightRequest="50"
-                    BorderWidth="1" WidthRequest="300"
-                    HorizontalOptions="Center" 
-                    Text="Sign up with Google     " 
-                    ImageSource="google.png" 
-                    BackgroundColor="Transparent" 
-                    TextColor="{AppThemeBinding Light=Black, Dark=White}">
-                </Button>
-
-                <!-- Log In Link -->
-                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                    <Label Text="Already have an account?" />
-                    <Label Text=" Log in" TextColor="{AppThemeBinding Light=Blue, Dark=LightBlue}">
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding GoToLoginCommand}"/>
-                        </Label.GestureRecognizers>
-                    </Label>
-                </StackLayout>
+            <!-- Log In Link -->
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Label Text="Already have an account?" />
+                <Label Text=" Log in" TextColor="{AppThemeBinding Light=Blue, Dark=LightBlue}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoToLoginCommand}"/>
+                    </Label.GestureRecognizers>
+                </Label>
             </StackLayout>
-        </ScrollView>
-    </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

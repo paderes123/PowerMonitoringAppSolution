@@ -12,5 +12,8 @@ namespace PowerMonitoringApp.Services.Interfaces
 
         // Method to stop listening for updates
         void StopListeningForPowerMeterUpdates();
+
+        // Method to add personal information of electric power consumers
+        Task AddPersonalInfo(string uid, PersonalInfo personalInfo);
     }
 }

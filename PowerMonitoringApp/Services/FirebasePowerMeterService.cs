@@ -1,10 +1,12 @@
 ﻿using Firebase.Auth;
 using Firebase.Database;
 using Firebase.Database.Query;
+using Microsoft.Maui.Storage;
 using PowerMonitoringApp.Models;
 using PowerMonitoringApp.Services.Interfaces;
 using System;
 using System.Diagnostics;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 
 namespace PowerMonitoringApp.Services
@@ -55,6 +57,18 @@ namespace PowerMonitoringApp.Services
                     }
                 }
             );
+        }
+
+        public async Task AddPersonalInfo(string uid, PersonalInfo personalInfo)
+        {
+            if (string.IsNullOrEmpty(uid))
+                return;
+
+            await _firebaseClient
+              .Child("ElectricPowerConsumers")
+              .Child(uid)
+              .Child("PersonalInfo")
+              .PutAsync(personalInfo);
         }
 
         public void StopListeningForPowerMeterUpdates()
