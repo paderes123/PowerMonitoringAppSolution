@@ -33,7 +33,7 @@
             </chart:SfCartesianChart.XAxes>
 
             <chart:SfCartesianChart.YAxes>
-                <chart:NumericalAxis ShowMajorGridLines="false" Minimum="0" Maximum="2000">
+                <chart:NumericalAxis ShowMajorGridLines="false" Minimum="0" AutoScrollingDelta="1000">
                     <chart:NumericalAxis.LabelStyle>
                         <chart:ChartAxisLabelStyle TextColor="{AppThemeBinding Light=Black, Dark=White}" />
                     </chart:NumericalAxis.LabelStyle>

@@ -38,7 +38,7 @@ namespace PowerMonitoringApp.ViewModels
             _powerMeterService.StartListeningForPowerMeterUpdates();
         }
 
-        private async void OnTimedEvent(object? sender, System.Timers.ElapsedEventArgs e)
+        private void OnTimedEvent(object? sender, System.Timers.ElapsedEventArgs e)
         {
             if (_isFetching) return; // Skip if still processing previous fetch
             _isFetching = true;

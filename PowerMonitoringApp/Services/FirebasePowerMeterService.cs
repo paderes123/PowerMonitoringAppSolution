@@ -41,8 +41,9 @@ namespace PowerMonitoringApp.Services
 
             // Subscribe to real-time updates for the PowerMeter node
             _powerMeterSubscription = _firebaseClient
-            .Child("Users")
+            .Child("ElectricPowerConsumers")
             .Child(uid)
+            .Child("LatestPowerMeter")
             .AsObservable<PowerMeter>()
             .Subscribe(
                 p =>

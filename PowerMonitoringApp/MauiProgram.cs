@@ -63,9 +63,9 @@ public static class MauiProgram
         builder.Services.AddTransient<ShellViewModel>();
 
         //Register the pages
-        builder.Services.AddTransient<LoginPage>();
-        builder.Services.AddTransient<FrequencyMeterPage>();
-        builder.Services.AddTransient<PowerMeterPage>();
+        //builder.Services.AddTransient<LoginPage>();
+        //builder.Services.AddTransient<FrequencyMeterPage>();
+        //builder.Services.AddTransient<PowerMeterPage>();
         //builder.Services.AddSingleton<SignUpPage>();
 
         var app = builder.Build();
