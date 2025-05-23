@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:chart="clr-namespace:Syncfusion.Maui.Toolkit.Charts;assembly=Syncfusion.Maui.Toolkit"
+             xmlns:viewModels="clr-namespace:PowerMonitoringApp.ViewModels"
+             x:Class="PowerMonitoringApp.Views.TodayPowerUsagePage"
+             x:DataType="viewModels:TodayPowerUsageViewModel"
+             Title="{Binding Title}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Indicators Panel -->
+        <Grid Grid.Row="0" Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Row 1 -->
+            <Label HorizontalTextAlignment="Center" Grid.Row="0" Grid.Column="0" Margin="5" FontSize="14"
+                   Text="Total Consumption: 1345546.20 kWh"/>
+            <Label HorizontalTextAlignment="Center" Grid.Row="0" Grid.Column="1" Margin="5" FontSize="14"
+                   Text="Total Cost: ₱2123343.43"/>
+            <Label HorizontalTextAlignment="Center" Grid.Row="0" Grid.Column="2" Margin="5" FontSize="14"
+                   Text="Price per kWh: ₱0.15"/>
+            <Label HorizontalTextAlignment="Center" Grid.Row="0" Grid.Column="3" Margin="5" FontSize="14"
+                   Text="Voltage: 240 V"/>
+
+            <!-- Row 2 -->
+            <Label HorizontalTextAlignment="Center" Grid.Row="1" Grid.Column="0" Margin="5" FontSize="14"
+                   Text="Current: 12354.023 A"/>
+            <Label HorizontalTextAlignment="Center" Grid.Row="1" Grid.Column="1" Margin="5" FontSize="14"
+                   Text="Frequency: 60 Hz"/>
+            <Label HorizontalTextAlignment="Center" Grid.Row="1" Grid.Column="2" Margin="5" FontSize="14"
+                   Text="Power Factor: 0.90"/>
+            <Label HorizontalTextAlignment="Center" Grid.Row="1" Grid.Column="3" Margin="5" FontSize="14"
+                   Text="Power: 53455665.00 kW"/>
+        </Grid>
+
+        <!-- Chart -->
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.Resources>
+                <ResourceDictionary>
+                    <DataTemplate x:Key="xAxisHeaderTemplate">
+                        <Label Text="Time (Hours)" Padding="0,2,0,3" FontSize="14.5"/>
+                    </DataTemplate>
+                    <DataTemplate x:Key="yAxisHeaderTemplate">
+                        <Label Text="Power (Watts)" Margin="10,2,0,2" FontSize="14"/>
+                    </DataTemplate>
+                </ResourceDictionary>
+            </Grid.Resources>
+
+            <chart:SfCartesianChart Grid.Row="1">
+                <chart:SfCartesianChart.Title>
+                    <Label Text="Power Consumption Today (May 19, 2025)" FontSize="17" Margin="0,10,0,10" HorizontalTextAlignment="Center"/>
+                </chart:SfCartesianChart.Title>
+
+                <chart:SfCartesianChart.ZoomPanBehavior>
+                    <chart:ChartZoomPanBehavior
+             EnablePanning="True"
+             EnablePinchZooming="True"
+             ZoomMode="XY" />
+                </chart:SfCartesianChart.ZoomPanBehavior>
+
+                <chart:SfCartesianChart.XAxes>
+                    <chart:DateTimeAxis
+             IntervalType="Hours"
+             Interval="1"
+             ShowMajorGridLines="True">
+                        <chart:DateTimeAxis.LabelStyle>
+                            <chart:ChartAxisLabelStyle 
+                 FontSize="10"
+                 LabelFormat="HH"/>
+                        </chart:DateTimeAxis.LabelStyle>
+                        <chart:DateTimeAxis.Title>
+                            <chart:ChartAxisTitle Text="Time (Hours)" FontSize="14" />
+                        </chart:DateTimeAxis.Title>
+                    </chart:DateTimeAxis>
+                </chart:SfCartesianChart.XAxes>
+
+                <chart:SfCartesianChart.YAxes>
+                    <chart:NumericalAxis Minimum="0">
+                        <chart:NumericalAxis.LabelStyle>
+                            <chart:ChartAxisLabelStyle FontSize="12" />
+                        </chart:NumericalAxis.LabelStyle>
+                        <chart:NumericalAxis.Title>
+                            <chart:ChartAxisTitle Text="Power (Watts)" FontSize="14" />
+                        </chart:NumericalAxis.Title>
+                    </chart:NumericalAxis>
+                </chart:SfCartesianChart.YAxes>
+
+                <chart:SfCartesianChart.Series>
+                    <chart:FastLineSeries ItemsSource="{Binding TodayPowerData}"
+                       EnableAnimation="True"
+                       EnableTooltip="True"
+                       XBindingPath="Date"
+                       YBindingPath="Value"
+                       StrokeWidth="1.3"/>
+                </chart:SfCartesianChart.Series>
+            </chart:SfCartesianChart>
+        </Grid>
+    </Grid>
+</ContentPage>

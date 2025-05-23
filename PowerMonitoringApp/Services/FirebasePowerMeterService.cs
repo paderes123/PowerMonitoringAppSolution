@@ -2,6 +2,7 @@
 using Firebase.Database;
 using Firebase.Database.Query;
 using Microsoft.Maui.Storage;
+using Newtonsoft.Json.Linq;
 using PowerMonitoringApp.Models;
 using PowerMonitoringApp.Services.Interfaces;
 using System;
@@ -69,6 +70,43 @@ namespace PowerMonitoringApp.Services
               .Child(uid)
               .Child("PersonalInfo")
               .PutAsync(personalInfo);
+        }
+
+        public async Task<List<TodayPowerData>> GetTodayPowerData()
+        {
+            // Get the Uid from Preferences
+            var uid = Preferences.Get("Uid", null);
+
+            var powerDataList = new List<TodayPowerData>();
+
+            // Fetch data for the specific UID
+            var consumer = await _firebaseClient
+                .Child("ElectricPowerConsumers")
+                .Child(uid)
+                .OnceSingleAsync<dynamic>();
+
+            if (consumer != null)
+            {
+                var powerMeterHistory = consumer?.PowerMeterHistory;
+
+                if (powerMeterHistory != null)
+                {
+                    // Convert to JObject for processing
+                    JObject historyObj = JObject.FromObject(powerMeterHistory);
+
+                    // Iterate through the DateTimeAndPower entries
+                    foreach (var entry in historyObj["DateTimeAndPower"])
+                    {
+                        var dataPoint = entry.First;
+                        powerDataList.Add(new TodayPowerData
+                        {
+                            DateTimeRecorded = DateTime.Parse(dataPoint["DateTimeRecorded"].ToString()),
+                            Power = Convert.ToDouble(dataPoint["Power"])
+                        });
+                    }
+                }
+            }
+            return powerDataList;
         }
 
         public void StopListeningForPowerMeterUpdates()

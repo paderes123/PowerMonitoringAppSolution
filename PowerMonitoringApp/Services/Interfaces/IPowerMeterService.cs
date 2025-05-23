@@ -15,5 +15,7 @@ namespace PowerMonitoringApp.Services.Interfaces
 
         // Method to add personal information of electric power consumers
         Task AddPersonalInfo(string uid, PersonalInfo personalInfo);
+
+        Task<List<TodayPowerData>> GetTodayPowerData();
     }
 }

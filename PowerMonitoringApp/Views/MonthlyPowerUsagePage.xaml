@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 x:Class="PowerMonitoringApp.Views.MonthlyPowerUsagePage"
+                 xmlns:viewModels="clr-namespace:PowerMonitoringApp.ViewModels"
+                 xmlns:chart="clr-namespace:Syncfusion.Maui.Toolkit.Charts;assembly=Syncfusion.Maui.Toolkit"
+                 x:DataType="viewModels:MonthlyPowerUsageViewModel"
+                 Title="{Binding Title}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- For indicators -->
+            <RowDefinition Height="*"/>
+            <!-- For chart -->
+        </Grid.RowDefinitions>
+
+        <!-- Indicators Panel -->
+        <Grid Grid.Row="0" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Row 1 -->
+            <Label Grid.Column="0" Margin="5" FontSize="14" HorizontalTextAlignment="Center"
+                       Text="Total Consumption: 966.90 kWh"/>
+            <Label Grid.Column="1" Margin="5" FontSize="14" HorizontalTextAlignment="Center"
+                       Text="Total Cost: ₱145.04"/>
+            <Label Grid.Column="2" Margin="5" FontSize="14" HorizontalTextAlignment="Center"
+                       Text="Price per kWh: ₱0.15"/>
+            <Label Grid.Column="3" Margin="5" FontSize="14" HorizontalTextAlignment="Center"
+                       Text="Average Power: 1.34 kW"/>
+        </Grid>
+
+        <!-- Chart -->
+        <chart:SfCartesianChart Grid.Row="1" Margin="10" MinimumWidthRequest="400">
+            <chart:SfCartesianChart.Title>
+                <Label Text="Daily Power Consumption (January)" 
+                   FontSize="16" 
+                   TextColor="{AppThemeBinding Light=Black, Dark=White}"
+                   HorizontalOptions="Center" 
+                   Margin="0,10,0,10"/>
+            </chart:SfCartesianChart.Title>
+
+            <chart:SfCartesianChart.XAxes>
+                <chart:CategoryAxis ShowMajorGridLines="False" 
+                            PlotOffsetStart="15" 
+                            PlotOffsetEnd="15" 
+                            LabelRotation="45">
+                    <chart:CategoryAxis.Title>
+                        <chart:ChartAxisTitle TextColor="{AppThemeBinding Light=Black, Dark=White}" Text="Day of Month"/>
+                    </chart:CategoryAxis.Title>
+                    <chart:CategoryAxis.LabelStyle>
+                        <chart:ChartAxisLabelStyle TextColor="{AppThemeBinding Light=Black, Dark=Yellow}" 
+                                           FontSize="10" 
+                                           LabelAlignment="End"/>
+                    </chart:CategoryAxis.LabelStyle>
+                </chart:CategoryAxis>
+            </chart:SfCartesianChart.XAxes>
+
+            <chart:SfCartesianChart.YAxes>
+                <chart:NumericalAxis ShowMajorGridLines="True"
+                    Minimum="0"
+                    Interval="5"
+                    RangePadding="Additional">
+                    <chart:NumericalAxis.Title>
+                        <chart:ChartAxisTitle TextColor="{AppThemeBinding Light=Black, Dark=White}" Text="Power Consumption (kWh)"/>
+                    </chart:NumericalAxis.Title>
+                    <chart:NumericalAxis.LabelStyle>
+                        <chart:ChartAxisLabelStyle TextColor="{AppThemeBinding Light=Black, Dark=White}" FontSize="12"/>
+                    </chart:NumericalAxis.LabelStyle>
+                </chart:NumericalAxis>
+            </chart:SfCartesianChart.YAxes>
+
+            <chart:ColumnSeries ItemsSource="{Binding PowerData}"
+                        XBindingPath="Day"
+                        YBindingPath="Consumption"
+                        EnableTooltip="True"
+                        Width="0.8"
+                        Spacing="0.3">
+            </chart:ColumnSeries>
+
+            <chart:SfCartesianChart.ZoomPanBehavior>
+                <chart:ChartZoomPanBehavior EnablePanning="True"
+                                    EnablePinchZooming="True"
+                                    EnableSelectionZooming="True"
+                                    EnableDirectionalZooming="True"
+                                    ZoomMode="X"/>
+            </chart:SfCartesianChart.ZoomPanBehavior>
+        </chart:SfCartesianChart>
+    </Grid>
+</ContentPage>
