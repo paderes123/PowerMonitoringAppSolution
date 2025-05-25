@@ -20,6 +20,9 @@ namespace PowerMonitoringApp.ViewModels
         [ObservableProperty]
         private ObservableCollection<TodayPowerData> _todayPowerData = new();
 
+        [ObservableProperty]
+        private string _chartTitle = $"Power Consumption Today ({DateTime.Now.ToString("MMMM dd, yyyy")})";
+
         public TodayPowerUsageViewModel(IPowerMeterService powerMeterService)
         {
             Title = "Power Consumption Today";

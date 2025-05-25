@@ -16,10 +16,8 @@
         <Grid Grid.Row="0" Margin="5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -32,10 +30,10 @@
                    Text="Total Cost: ₱23.43"/>
             <Label HorizontalTextAlignment="Center" Grid.Row="0" Grid.Column="2" Margin="5" FontSize="14"
                    Text="Price per kWh: ₱15"/>
-            <Label HorizontalTextAlignment="Center" Grid.Row="0" Grid.Column="3" Margin="5" FontSize="14"
+            <!--<Label HorizontalTextAlignment="Center" Grid.Row="0" Grid.Column="3" Margin="5" FontSize="14"
                    Text="Voltage: 221 V"/>
 
-            <!-- Row 2 -->
+            --><!-- Row 2 --><!--
             <Label HorizontalTextAlignment="Center" Grid.Row="1" Grid.Column="0" Margin="5" FontSize="14"
                    Text="Current: 0.3 A"/>
             <Label HorizontalTextAlignment="Center" Grid.Row="1" Grid.Column="1" Margin="5" FontSize="14"
@@ -43,7 +41,7 @@
             <Label HorizontalTextAlignment="Center" Grid.Row="1" Grid.Column="2" Margin="5" FontSize="14"
                    Text="Power Factor: 0.90"/>
             <Label HorizontalTextAlignment="Center" Grid.Row="1" Grid.Column="3" Margin="5" FontSize="14"
-                   Text="Power: 53.00 Watts"/>
+                   Text="Power: 53.00 Watts"/>-->
         </Grid>
 
         <!-- Chart Section -->
@@ -57,7 +55,7 @@
             <!-- Chart -->
             <chart:SfCartesianChart Grid.Row="0" Margin="20">
                 <chart:SfCartesianChart.Title>
-                    <Label Text="Power Consumption Today (May 19, 2025)" FontSize="17" Margin="0,10,0,10" HorizontalTextAlignment="Center"/>
+                    <Label Text="{Binding ChartTitle}" FontSize="17" Margin="0,10,0,10" HorizontalTextAlignment="Center"/>
                 </chart:SfCartesianChart.Title>
 
                 <chart:SfCartesianChart.ZoomPanBehavior>
@@ -75,10 +73,11 @@
                         <chart:DateTimeAxis.LabelStyle>
                             <chart:ChartAxisLabelStyle 
                                  FontSize="10"
-                                 LabelFormat="HH"/>
+                                 TextColor="{AppThemeBinding Light=Black, Dark=White}"
+                                 LabelFormat="HH:mm"/>
                         </chart:DateTimeAxis.LabelStyle>
                         <chart:DateTimeAxis.Title>
-                            <chart:ChartAxisTitle Text="Time (Hours)" FontSize="14" />
+                            <chart:ChartAxisTitle TextColor="{AppThemeBinding Light=Black, Dark=White}" Text="Time (Hours)" FontSize="14" />
                         </chart:DateTimeAxis.Title>
                     </chart:DateTimeAxis>
                 </chart:SfCartesianChart.XAxes>
@@ -86,10 +85,10 @@
                 <chart:SfCartesianChart.YAxes>
                     <chart:NumericalAxis Minimum="0">
                         <chart:NumericalAxis.LabelStyle>
-                            <chart:ChartAxisLabelStyle FontSize="12" />
+                            <chart:ChartAxisLabelStyle FontSize="12" TextColor="{AppThemeBinding Light=Black, Dark=Yellow}" />
                         </chart:NumericalAxis.LabelStyle>
                         <chart:NumericalAxis.Title>
-                            <chart:ChartAxisTitle Text="Power (Watts)" FontSize="14" />
+                            <chart:ChartAxisTitle TextColor="{AppThemeBinding Light=Black, Dark=White}" Text="Power (Watts)" FontSize="14" />
                         </chart:NumericalAxis.Title>
                     </chart:NumericalAxis>
                 </chart:SfCartesianChart.YAxes>
@@ -110,6 +109,12 @@
               IsEnabled="{Binding IsNotBusy}"
               Margin="20,5,20,10"
               Grid.Row="1" />
+
+            <ActivityIndicator
+                Grid.Row="0"
+                VerticalOptions="Center"
+                IsRunning="{Binding IsBusy}"
+                IsVisible="{Binding IsBusy}"/>
         </Grid>
     </Grid>
 </ContentPage>
