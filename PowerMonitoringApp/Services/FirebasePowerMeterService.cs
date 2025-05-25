@@ -74,40 +74,43 @@ namespace PowerMonitoringApp.Services
 
         public async Task<List<TodayPowerData>> GetTodayPowerData()
         {
-            // Get the Uid from Preferences
             var uid = Preferences.Get("Uid", null);
-
             var powerDataList = new List<TodayPowerData>();
 
-            // Fetch data for the specific UID
-            var consumer = await _firebaseClient
+            if (string.IsNullOrEmpty(uid))
+                return powerDataList;
+
+            string todayMonth = DateTime.UtcNow.ToString("yyyy-MM");
+            string todayDay = DateTime.UtcNow.ToString("dd");
+
+            var dayNode = await _firebaseClient
                 .Child("ElectricPowerConsumers")
                 .Child(uid)
-                .OnceSingleAsync<dynamic>();
+                .Child("PowerMeterHistory")
+                .Child(todayMonth)
+                .Child(todayDay)
+                .OnceAsync<JObject>();
 
-            if (consumer != null)
+            if (dayNode != null)
             {
-                var powerMeterHistory = consumer?.PowerMeterHistory;
-
-                if (powerMeterHistory != null)
+                foreach (var record in dayNode)
                 {
-                    // Convert to JObject for processing
-                    JObject historyObj = JObject.FromObject(powerMeterHistory);
+                    var data = record.Object;
 
-                    // Iterate through the DateTimeAndPower entries
-                    foreach (var entry in historyObj["DateTimeAndPower"])
+                    if (data != null && data["DateTimeRecorded"] != null && data["Power"] != null)
                     {
-                        var dataPoint = entry.First;
                         powerDataList.Add(new TodayPowerData
                         {
-                            DateTimeRecorded = DateTime.Parse(dataPoint["DateTimeRecorded"].ToString()),
-                            Power = Convert.ToDouble(dataPoint["Power"])
+                            DateTimeRecorded = DateTime.Parse(data["DateTimeRecorded"].ToString()),
+                            Power = Convert.ToDouble(data["Power"].ToString())
                         });
                     }
                 }
             }
+
             return powerDataList;
         }
+
 
         public void StopListeningForPowerMeterUpdates()
         {

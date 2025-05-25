@@ -27,63 +27,55 @@
 
             <!-- Row 1 -->
             <Label HorizontalTextAlignment="Center" Grid.Row="0" Grid.Column="0" Margin="5" FontSize="14"
-                   Text="Total Consumption: 1345546.20 kWh"/>
+                   Text="Total Consumption: 13.20 kWh"/>
             <Label HorizontalTextAlignment="Center" Grid.Row="0" Grid.Column="1" Margin="5" FontSize="14"
-                   Text="Total Cost: ₱2123343.43"/>
+                   Text="Total Cost: ₱23.43"/>
             <Label HorizontalTextAlignment="Center" Grid.Row="0" Grid.Column="2" Margin="5" FontSize="14"
-                   Text="Price per kWh: ₱0.15"/>
+                   Text="Price per kWh: ₱15"/>
             <Label HorizontalTextAlignment="Center" Grid.Row="0" Grid.Column="3" Margin="5" FontSize="14"
-                   Text="Voltage: 240 V"/>
+                   Text="Voltage: 221 V"/>
 
             <!-- Row 2 -->
             <Label HorizontalTextAlignment="Center" Grid.Row="1" Grid.Column="0" Margin="5" FontSize="14"
-                   Text="Current: 12354.023 A"/>
+                   Text="Current: 0.3 A"/>
             <Label HorizontalTextAlignment="Center" Grid.Row="1" Grid.Column="1" Margin="5" FontSize="14"
                    Text="Frequency: 60 Hz"/>
             <Label HorizontalTextAlignment="Center" Grid.Row="1" Grid.Column="2" Margin="5" FontSize="14"
                    Text="Power Factor: 0.90"/>
             <Label HorizontalTextAlignment="Center" Grid.Row="1" Grid.Column="3" Margin="5" FontSize="14"
-                   Text="Power: 53455665.00 kW"/>
+                   Text="Power: 53.00 Watts"/>
         </Grid>
 
-        <!-- Chart -->
+        <!-- Chart Section -->
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
+                <!-- Refresh Button -->
+                <RowDefinition Height="Auto"/>
+                <!-- Chart -->
             </Grid.RowDefinitions>
-            <Grid.Resources>
-                <ResourceDictionary>
-                    <DataTemplate x:Key="xAxisHeaderTemplate">
-                        <Label Text="Time (Hours)" Padding="0,2,0,3" FontSize="14.5"/>
-                    </DataTemplate>
-                    <DataTemplate x:Key="yAxisHeaderTemplate">
-                        <Label Text="Power (Watts)" Margin="10,2,0,2" FontSize="14"/>
-                    </DataTemplate>
-                </ResourceDictionary>
-            </Grid.Resources>
-
-            <chart:SfCartesianChart Grid.Row="1">
+            <!-- Chart -->
+            <chart:SfCartesianChart Grid.Row="0" Margin="20">
                 <chart:SfCartesianChart.Title>
                     <Label Text="Power Consumption Today (May 19, 2025)" FontSize="17" Margin="0,10,0,10" HorizontalTextAlignment="Center"/>
                 </chart:SfCartesianChart.Title>
 
                 <chart:SfCartesianChart.ZoomPanBehavior>
                     <chart:ChartZoomPanBehavior
-             EnablePanning="True"
-             EnablePinchZooming="True"
-             ZoomMode="XY" />
+                         EnablePanning="True"
+                         EnablePinchZooming="True"
+                         ZoomMode="XY" />
                 </chart:SfCartesianChart.ZoomPanBehavior>
 
                 <chart:SfCartesianChart.XAxes>
                     <chart:DateTimeAxis
-             IntervalType="Hours"
-             Interval="1"
-             ShowMajorGridLines="True">
+                         IntervalType="Hours"
+                         Interval="1"
+                         ShowMajorGridLines="True">
                         <chart:DateTimeAxis.LabelStyle>
                             <chart:ChartAxisLabelStyle 
-                 FontSize="10"
-                 LabelFormat="HH"/>
+                                 FontSize="10"
+                                 LabelFormat="HH"/>
                         </chart:DateTimeAxis.LabelStyle>
                         <chart:DateTimeAxis.Title>
                             <chart:ChartAxisTitle Text="Time (Hours)" FontSize="14" />
@@ -106,11 +98,18 @@
                     <chart:FastLineSeries ItemsSource="{Binding TodayPowerData}"
                        EnableAnimation="True"
                        EnableTooltip="True"
-                       XBindingPath="Date"
-                       YBindingPath="Value"
+                       XBindingPath="DateTimeRecorded"
+                       YBindingPath="Power"
                        StrokeWidth="1.3"/>
                 </chart:SfCartesianChart.Series>
             </chart:SfCartesianChart>
+
+            <!-- Refresh Button -->
+            <Button Text="Refresh Data"
+              Command="{Binding LoadDataCommand}"
+              IsEnabled="{Binding IsNotBusy}"
+              Margin="20,5,20,10"
+              Grid.Row="1" />
         </Grid>
     </Grid>
 </ContentPage>

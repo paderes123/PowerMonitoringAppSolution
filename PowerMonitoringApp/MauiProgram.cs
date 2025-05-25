@@ -57,7 +57,7 @@ public static class MauiProgram
 
         // Register the viewmodels
         builder.Services.AddTransient<PowerMeterViewModel>();
-        builder.Services.AddTransient<MonthlyPowerUsageViewModel>();
+        builder.Services.AddSingleton<MonthlyPowerUsageViewModel>();
         builder.Services.AddTransient<TodayPowerUsageViewModel>();
         builder.Services.AddTransient<VoltageAndCurrentMeterViewModel>();
         builder.Services.AddTransient<LoginViewModel>();
